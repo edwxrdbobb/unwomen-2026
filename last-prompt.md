@@ -1,0 +1,2 @@
+in creating a blog the image should not be a url form, we should be able to upload images and sync them to cloudinary. if we can also add a watermark on every product image we upload.
+also in the vendors dashboard let's add more analytics insign for thier products, like howmany views, wishlist adds of that products, sales, predictions etc. we can aslo apply a notification system which can aslo work when someone 

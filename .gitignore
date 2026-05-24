@@ -1,0 +1,8 @@
+
+.env.local
+node_modules/
+.next/
+*.zip
+*.DS_Store
+last-prompt.md
+v0.md

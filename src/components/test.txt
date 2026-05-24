@@ -1,0 +1,95 @@
+import Image from 'next/image'
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Navbar */}
+      <header className="flex justify-between items-center p-4 bg-white shadow-md">
+        <div className="flex items-center space-x-3">
+          <Image src="/unwomen-logo.png" alt="UN Women Logo" width={50} height={50} />
+          <h1 className="text-lg font-bold">UN Women</h1>
+        </div>
+        <nav className="space-x-6">
+          <a href="#" className="text-gray-600">Home</a>
+          <a href="#" className="text-gray-600">Who We Are</a>
+          <a href="#" className="text-gray-600">Store</a>
+          <a href="#" className="text-gray-600">Mentor</a>
+          <a href="#" className="text-gray-600">Login</a>
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">Sign Up</button>
+        </nav>
+      </header>
+
+      {/* Banner Section */}
+      <section className="relative h-[400px]">
+        <div className="absolute inset-0 bg-gray-900 opacity-50 z-10"></div>
+        <Image src="/banner-image.jpg" alt="Banner" layout="fill" objectFit="cover" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-20 text-center text-white">
+          <h2 className="text-4xl font-bold">Equal Opportunity for Women in Business</h2>
+          <p className="mt-4">Unlock Opportunities: Buy, Sell, and Thrive with UNWOMEN Market Square</p>
+          <button className="mt-6 bg-yellow-500 text-white px-4 py-2 rounded-lg">Shop Now</button>
+        </div>
+      </section>
+
+      {/* Category Section */}
+      <section className="py-8 px-4">
+        <h3 className="text-2xl font-semibold mb-6">Search by category</h3>
+        <div className="flex flex-wrap gap-4">
+          <button className="bg-yellow-400 px-4 py-2 rounded-full">All</button>
+          {/* Add more category buttons like the one below */}
+          <button className="bg-gray-200 px-4 py-2 rounded-full">Food & Agriculture</button>
+          <button className="bg-gray-200 px-4 py-2 rounded-full">Clothing & Fashion</button>
+          <button className="bg-gray-200 px-4 py-2 rounded-full">Health & Beauty</button>
+          {/* Add the rest as needed */}
+        </div>
+      </section>
+
+      {/* Product Listing Section */}
+      <section className="py-8 px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {/* Example of a product card */}
+        <div className="bg-white rounded-lg shadow-lg p-4">
+          <Image src="/macbook-pro.jpg" alt="MacBook Pro" width={200} height={150} className="w-full h-40 object-cover rounded" />
+          <h4 className="mt-4 text-lg font-semibold">MacBook Pro 2022 M2</h4>
+          <p className="text-gray-500">NLe 32,000.00</p>
+          <p className="text-sm text-gray-400">Category: Phones & Laptops</p>
+        </div>
+        {/* Repeat product cards */}
+        {/* Example product cards can be looped */}
+      </section>
+
+      {/* Footer Section */}
+      <footer className="bg-blue-900 text-white p-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* About UN Women */}
+          <div>
+            <h5 className="font-semibold">About UN Women</h5>
+            <p className="mt-4">
+              UN Women is the UN organization delivering programs, policies and standards that uphold women’s rights.
+            </p>
+          </div>
+          
+          {/* Subscribe */}
+          <div>
+            <h5 className="font-semibold">Subscribe for our latest product news</h5>
+            <form className="mt-4">
+              <input type="email" className="p-2 rounded bg-gray-200" placeholder="example@mail.com" />
+              <button className="ml-2 bg-yellow-500 text-white px-4 py-2 rounded-lg">Submit</button>
+            </form>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h5 className="font-semibold">Contact</h5>
+            <p className="mt-4">Freetown Sierra Leone</p>
+            <p>Email: info@unwomenmarketsquare.org</p>
+            <p>Phone: +232 79 366 751</p>
+          </div>
+
+          {/* Opening Hours */}
+          <div>
+            <h5 className="font-semibold">Opening Hours</h5>
+            <p className="mt-4">Mon - Thu: 8am - 9pm</p>
+            <p>Fri - Sat: 8am - 1am</p>
+          </div>
+        </div>
+        <div className="mt-8 text-center">
+          <p
