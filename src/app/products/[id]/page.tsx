@@ -8,6 +8,8 @@ import Link from 'next/link'
 import Loader from '@/components/Loader'
 import { Heart, MapPin, Tag, CheckCircle, ArrowRight, Share2, MessageCircle, Copy, X, Send } from 'lucide-react'
 import { toast, Toaster } from 'react-hot-toast'
+import { ProductImage } from '@/components/ui/ProductImage'
+import { Avatar } from '@/components/ui/Avatar'
 
 interface WishlistItem { id: string; uuid: string; productName: string; price: number; image: string; category?: string }
 
@@ -28,14 +30,7 @@ function VendorCard({ profile }: { profile: ReturnType<typeof useQuery<typeof ap
       <div className="h-0.5 bg-gradient-to-r from-blue-500 to-yellow-400" />
       <div className="p-4 flex items-center gap-4">
         <div className="flex-shrink-0">
-          {profile.profileImageUrl ? (
-            <img src={profile.profileImageUrl} alt={profile.name}
-              className="w-12 h-12 rounded-full object-cover ring-2 ring-blue-100 dark:ring-blue-900/30" />
-          ) : (
-            <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center ring-2 ring-blue-100 dark:ring-blue-900/30">
-              <span className="text-lg font-bold text-white">{profile.name.charAt(0).toUpperCase()}</span>
-            </div>
-          )}
+          <Avatar src={profile.profileImageUrl} name={profile.name} size="md" className="ring-2 ring-blue-100 dark:ring-blue-900/30" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
@@ -246,7 +241,7 @@ export default function ProductDetailsPage() {
   if (product === undefined) return <Loader />
   if (!product) return <div className="p-6 text-gray-500">Product not found.</div>
 
-  const images = product.imageUrls.length > 0 ? product.imageUrls : ['/placeholder.svg']
+  const images = product.imageUrls.length > 0 ? product.imageUrls : ['']
   const discount = product.previousPrice > product.currentPrice
     ? Math.round(((product.previousPrice - product.currentPrice) / product.previousPrice) * 100)
     : 0
@@ -294,8 +289,8 @@ export default function ProductDetailsPage() {
 
           {/* ── Image Gallery ── */}
           <div className="space-y-3">
-            <div className="relative rounded-2xl overflow-hidden bg-white dark:bg-gray-800 shadow-card aspect-square">
-              <img src={images[currentImage]} alt={product.productName}
+            <div className="relative rounded-2xl overflow-hidden shadow-card aspect-square">
+              <ProductImage src={images[currentImage]} alt={product.productName}
                 className="w-full h-full object-cover" />
               {discount > 0 && (
                 <span className="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
@@ -303,16 +298,16 @@ export default function ProductDetailsPage() {
                 </span>
               )}
             </div>
-            {images.length > 1 && (
+            {product.imageUrls.length > 1 && (
               <div className="flex gap-2.5">
-                {images.map((img, i) => (
+                {product.imageUrls.map((img, i) => (
                   <button key={i} onClick={() => setCurrentImage(i)}
                     className={`w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 transition-all ${
                       i === currentImage
                         ? 'ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-900'
                         : 'opacity-60 hover:opacity-100 ring-1 ring-gray-200 dark:ring-gray-600'
                     }`}>
-                    <img src={img} alt={`View ${i + 1}`} className="w-full h-full object-cover" />
+                    <ProductImage src={img} alt={`View ${i + 1}`} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>

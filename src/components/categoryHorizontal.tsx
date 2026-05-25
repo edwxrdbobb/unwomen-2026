@@ -1,32 +1,11 @@
 "use client";
 
 import { useState, useRef } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight, Sparkles, Shirt, Gem, UtensilsCrossed, Leaf, Palette, Home, Layers, HeartPulse, Baby, Scissors, CakeSlice, Pencil, BookOpen, Wind, PartyPopper, Smartphone, Paperclip, Tag } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { useQuery } from 'convex/react';
 import { api } from '@cvx/_generated/api';
 import Link from 'next/link';
-import type { LucideIcon } from 'lucide-react';
-
-const CATEGORY_ICONS: Record<string, LucideIcon> = {
-  'beauty-skincare':        Sparkles,
-  'fashion-clothing':       Shirt,
-  'accessories-jewellery':  Gem,
-  'food-beverages':         UtensilsCrossed,
-  'farm-produce':           Leaf,
-  'crafts-artwork':         Palette,
-  'home-household':         Home,
-  'textiles-fabrics':       Layers,
-  'health-wellness':        HeartPulse,
-  'baby-kids':              Baby,
-  'hair-beauty-services':   Scissors,
-  'catering-baking':        CakeSlice,
-  'tailoring-design':       Pencil,
-  'education-training':     BookOpen,
-  'cleaning-home-services': Wind,
-  'event-planning':         PartyPopper,
-  'electronics-tech':       Smartphone,
-  'stationery-office':      Paperclip,
-};
+import { CategoryIcon } from '@/components/ui/CategoryIcon';
 
 const CategoryHorizontal = () => {
   const categories = useQuery(api.categories.list) ?? [];
@@ -75,21 +54,18 @@ const CategoryHorizontal = () => {
                 <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full w-16 mx-auto" />
               </div>
             ))
-          : categories.map((cat) => {
-              const Icon = CATEGORY_ICONS[cat.slug] ?? Tag;
-              return (
-                <Link key={cat._id} href={`/products/shop/category/${cat.name}`} className="flex-shrink-0 group">
-                  <div className="flex flex-col items-center w-28">
-                    <div className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center transition-all group-hover:shadow-lg group-hover:scale-105 ${cat.color}`}>
-                      <Icon className={`w-8 h-8 ${cat.textColor}`} strokeWidth={1.5} />
-                    </div>
-                    <span className="mt-2.5 text-xs font-semibold text-gray-700 dark:text-gray-300 text-center group-hover:text-[#399edc] transition-colors leading-tight">
-                      {cat.name}
-                    </span>
+          : categories.map((cat) => (
+              <Link key={cat._id} href={`/products/shop/category/${cat.name}`} className="flex-shrink-0 group">
+                <div className="flex flex-col items-center w-28">
+                  <div className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center transition-all group-hover:shadow-lg group-hover:scale-105 ${cat.color}`}>
+                    <CategoryIcon value={cat.emoji} className={`w-8 h-8 ${cat.textColor}`} strokeWidth={1.5} />
                   </div>
-                </Link>
-              );
-            })}
+                  <span className="mt-2.5 text-xs font-semibold text-gray-700 dark:text-gray-300 text-center group-hover:text-[#399edc] transition-colors leading-tight">
+                    {cat.name}
+                  </span>
+                </div>
+              </Link>
+            ))}
       </div>
     </section>
   );
