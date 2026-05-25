@@ -16,6 +16,7 @@ import type * as businesses from "../businesses.js";
 import type * as categories from "../categories.js";
 import type * as mentorship from "../mentorship.js";
 import type * as messages from "../messages.js";
+import type * as migration from "../migration.js";
 import type * as products from "../products.js";
 import type * as profiles from "../profiles.js";
 import type * as search from "../search.js";
@@ -37,6 +38,7 @@ declare const fullApi: ApiFromModules<{
   categories: typeof categories;
   mentorship: typeof mentorship;
   messages: typeof messages;
+  migration: typeof migration;
   products: typeof products;
   profiles: typeof profiles;
   search: typeof search;

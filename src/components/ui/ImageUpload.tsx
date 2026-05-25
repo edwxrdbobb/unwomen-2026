@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 import { useCloudinaryUpload } from '@/hooks/useCloudinaryUpload'
 import { Upload, X, Loader2, Image as ImageIcon } from 'lucide-react'
 import { toast } from 'react-hot-toast'
+import { applyWatermark } from '@/utils/watermark'
 
 interface ImageUploadProps {
   value?: string
@@ -12,6 +13,7 @@ interface ImageUploadProps {
   folder?: string
   label?: string
   aspectRatio?: string
+  watermark?: boolean
 }
 
 export function ImageUpload({
@@ -21,6 +23,7 @@ export function ImageUpload({
   folder = 'unwomen',
   label = 'Upload Image',
   aspectRatio = 'aspect-video',
+  watermark = false,
 }: ImageUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const { upload, uploading, progress } = useCloudinaryUpload()
@@ -38,7 +41,8 @@ export function ImageUpload({
 
     setPreview(URL.createObjectURL(file))
     try {
-      const url = await upload(file, folder)
+      const fileToUpload = watermark ? await applyWatermark(file) : file
+      const url = await upload(fileToUpload, folder)
       onChange(url)
       toast.success('Image uploaded!')
     } catch {
@@ -129,9 +133,10 @@ interface MultiImageUploadProps {
   folder?: string
   max?: number
   label?: string
+  watermark?: boolean
 }
 
-export function MultiImageUpload({ values, onChange, folder = 'unwomen', max = 5, label }: MultiImageUploadProps) {
+export function MultiImageUpload({ values, onChange, folder = 'unwomen', max = 5, label, watermark = false }: MultiImageUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const { upload, uploading, progress } = useCloudinaryUpload()
 
@@ -140,7 +145,8 @@ export function MultiImageUpload({ values, onChange, folder = 'unwomen', max = 5
     if (!file.type.startsWith('image/')) { toast.error('Please select an image file'); return }
     if (file.size > 10 * 1024 * 1024) { toast.error('Image must be under 10 MB'); return }
     try {
-      const url = await upload(file, folder)
+      const fileToUpload = watermark ? await applyWatermark(file) : file
+      const url = await upload(fileToUpload, folder)
       onChange([...values, url])
       toast.success('Image uploaded!')
     } catch {

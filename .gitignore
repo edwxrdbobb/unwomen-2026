@@ -6,3 +6,4 @@ node_modules/
 *.DS_Store
 last-prompt.md
 v0.md
+db_un.sql

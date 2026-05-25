@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight, Heart, MapPin, ArrowRight, Tag } from "lucide-react"
+import { ProductImage } from "@/components/ui/ProductImage"
 import Loader from "./Loader"
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
@@ -84,7 +85,7 @@ function ProductCardGrid({ products, currentPage, setCurrentPage, productsPerPag
             <Link key={product.id} href={`/products/${product.uuid}`} className="group">
               <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden flex flex-col">
                 <div className="relative overflow-hidden bg-gray-50 dark:bg-gray-700" style={{ height: '180px' }}>
-                  <img src={img} alt={product.productName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <ProductImage src={img} alt={product.productName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   {pct > 0 && (
                     <span className="absolute top-2 left-2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">-{pct}%</span>
                   )}

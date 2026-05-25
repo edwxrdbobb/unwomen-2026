@@ -6,6 +6,7 @@ import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
 import { toast, Toaster } from 'react-hot-toast'
 import { Package, Trash2, Search, Image as ImageIcon, Pencil, Check, X } from 'lucide-react'
+import { ProductImage } from '@/components/ui/ProductImage'
 import type { Id } from '@cvx/_generated/dataModel'
 
 type EditForm = {
@@ -118,14 +119,8 @@ export default function AdminProductsPage() {
                   <tr key={p._id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        {p.imageUrls[0] ? (
-                          <img src={p.imageUrls[0]} alt={p.productName}
-                            className="w-10 h-10 rounded-xl object-cover flex-shrink-0" />
-                        ) : (
-                          <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center flex-shrink-0">
-                            <ImageIcon className="w-4 h-4 text-gray-400" />
-                          </div>
-                        )}
+                        <ProductImage src={p.imageUrls[0]} alt={p.productName}
+                          className="w-10 h-10 rounded-xl object-cover flex-shrink-0" />
                         <div>
                           <p className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1">{p.productName}</p>
                           <p className="text-xs text-gray-400 dark:text-gray-500">{p.productLocation}</p>

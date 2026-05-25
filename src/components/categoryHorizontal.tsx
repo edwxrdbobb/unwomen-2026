@@ -80,8 +80,8 @@ const CategoryHorizontal = () => {
               return (
                 <Link key={cat._id} href={`/products/shop/category/${encodeURIComponent(cat.name)}`} className="flex-shrink-0 group">
                   <div className="flex flex-col items-center w-28">
-                    <div className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center transition-all group-hover:shadow-lg group-hover:scale-105 ${cat.color} dark:bg-gray-700`}>
-                      <Icon className={`w-8 h-8 ${cat.textColor} dark:text-gray-300`} strokeWidth={1.5} />
+                    <div className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center transition-all group-hover:shadow-lg group-hover:scale-105 ${cat.color}`}>
+                      <Icon className={`w-8 h-8 ${cat.textColor}`} strokeWidth={1.5} />
                     </div>
                     <span className="mt-2.5 text-xs font-semibold text-gray-700 dark:text-gray-300 text-center group-hover:text-[#399edc] transition-colors leading-tight">
                       {cat.name}

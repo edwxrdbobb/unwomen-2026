@@ -262,6 +262,7 @@ export default function CreateProductPage() {
               folder="unwomen/products"
               max={4}
               label="Product Images (up to 4)"
+              watermark
             />
           </div>
 

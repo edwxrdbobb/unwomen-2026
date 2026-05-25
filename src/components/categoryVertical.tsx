@@ -54,7 +54,7 @@ export default function CategoryVertical({ currentCategory }: { currentCategory:
                 : 'hover:bg-[#eef7fd] dark:hover:bg-[#1a5a8a]/20 text-gray-700 dark:text-gray-300'
             }`}>
               <span className={`flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center ${
-                isActive ? 'bg-white/20' : `${cat.color} dark:bg-gray-700`
+                isActive ? 'bg-white/20' : cat.color
               }`}>
                 <Icon className={`w-4 h-4 ${isActive ? 'text-white' : cat.textColor}`} strokeWidth={1.5} />
               </span>
