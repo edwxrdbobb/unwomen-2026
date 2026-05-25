@@ -1,6 +1,6 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import { Avatar } from '@/components/ui/Avatar';
 
 interface ProductStoreOwnerProps {
   storeName: string;
@@ -15,18 +15,10 @@ const ProductStoreOwner: React.FC<ProductStoreOwnerProps> = ({
   profileImage,
   storeId,
 }) => {
-  const firstLetter = storeName.charAt(0).toUpperCase();
-
   return (
     <div className="flex items-center p-4 border rounded-lg">
       <div className="flex-shrink-0">
-        {profileImage ? (
-            <img src={profileImage} alt={storeName} width={48} height={48} className="rounded-full" />
-        ) : (
-          <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
-            {firstLetter}
-          </div>
-        )}
+        <Avatar src={profileImage} name={storeName} size="md" />
       </div>
       <div className="ml-4">
         <h4 className="font-semibold">{storeName}</h4>

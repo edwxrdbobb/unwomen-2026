@@ -6,6 +6,7 @@ import { api } from '@cvx/_generated/api'
 import Loader from '@/components/Loader'
 import Link from 'next/link'
 import { MapPin, Mail, Phone, Globe, CheckCircle, ArrowRight, Building2, Tag, ShoppingBag, User } from 'lucide-react'
+import FollowButton from '@/components/FollowButton'
 
 function OwnerProfileSection({ userId }: { userId: string }) {
   const profile = useQuery(api.profiles.get, { userId })
@@ -204,6 +205,9 @@ export default function BusinessDetailsPage() {
               <MapPin className="w-4 h-4" /> {business.businessLocation}
             </p>
           )}
+          <div className="mt-3">
+            <FollowButton targetId={business.vendorUserId} targetType="vendor" />
+          </div>
         </div>
       </div>
 

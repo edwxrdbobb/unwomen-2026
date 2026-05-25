@@ -4,10 +4,12 @@ import Image from "next/image"
 import logo from '@/images/unwomenlogo.png'
 import { useEffect, useState, useRef } from 'react'
 import { Heart, Menu, X, Search, LayoutGrid, Plus, Clock } from 'lucide-react'
+import { Avatar } from '@/components/ui/Avatar'
 import Link from "next/link"
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import ThemeToggle from './ThemeToggle'
+import NotificationBell from './NotificationBell'
 import { useMutation } from 'convex/react'
 import { api } from '@cvx/_generated/api'
 
@@ -117,16 +119,9 @@ export default function Header() {
     ) : null
   )
 
-  const renderAvatar = () => {
-    if (user?.profileImageUrl) {
-      return <img className="rounded-full w-8 h-8 object-cover ring-2 ring-yellow-400" src={user.profileImageUrl} alt={user.name} />
-    }
-    return (
-      <div className="rounded-full w-8 h-8 flex items-center justify-center bg-blue-500/80 border border-gray-500 text-white text-sm font-bold">
-        {user?.name?.charAt(0).toUpperCase()}
-      </div>
-    )
-  }
+  const renderAvatar = () => (
+    <Avatar src={user?.profileImageUrl} name={user?.name} size="sm" className="ring-2 ring-yellow-400" />
+  )
 
   const renderAuthLinks = () => {
     if (loading) {
@@ -224,6 +219,9 @@ export default function Header() {
                 )}
               </Link>
             )}
+
+            {/* Notifications */}
+            {user && <NotificationBell userId={String(user.id)} />}
 
             {/* Dark mode toggle */}
             <ThemeToggle />

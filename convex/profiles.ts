@@ -223,12 +223,24 @@ export const setVerified = mutation({
     adminUserId: v.string(),
     isVerified: v.boolean(),
   },
-  handler: async (ctx, { targetUserId, isVerified }) => {
+  handler: async (ctx, { targetUserId, adminUserId, isVerified }) => {
     const profile = await ctx.db
       .query("profiles")
       .withIndex("by_userId", (q) => q.eq("userId", targetUserId))
       .unique();
     if (!profile) throw new Error("Profile not found");
     await ctx.db.patch(profile._id, { isVerified });
+
+    if (isVerified) {
+      await ctx.db.insert("notifications", {
+        userId: targetUserId,
+        type: "account_approved",
+        title: "Account Verified",
+        body: "Your account has been verified. You now have full access to all platform features.",
+        read: false,
+        createdAt: Date.now(),
+        fromUserId: adminUserId,
+      });
+    }
   },
 });

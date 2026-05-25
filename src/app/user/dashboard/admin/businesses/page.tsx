@@ -6,6 +6,7 @@ import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
 import { toast, Toaster } from 'react-hot-toast'
 import { Building2, Trash2, Search, Globe, Mail, Phone, Pencil, Plus, X, Check } from 'lucide-react'
+import { BusinessImage } from '@/components/ui/BusinessImage'
 import type { Id } from '@cvx/_generated/dataModel'
 
 const BUSINESS_CATEGORIES = ['SME', 'MACRO', 'MICRO', 'SOHO'] as const
@@ -283,13 +284,7 @@ export default function AdminBusinessesPage() {
               </div>
             ) : (
               <>
-                {b.imageUrls[0] ? (
-                  <img src={b.imageUrls[0]} alt={b.businessName} className="w-full h-28 object-cover" />
-                ) : (
-                  <div className="w-full h-28 bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-                    <Building2 className="w-8 h-8 text-gray-300 dark:text-gray-600" />
-                  </div>
-                )}
+                <BusinessImage src={b.imageUrls[0]} alt={b.businessName} className="w-full h-28 object-cover" />
                 <div className="p-4">
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <h3 className="text-sm font-bold text-gray-900 dark:text-white line-clamp-1">{b.businessName}</h3>

@@ -70,7 +70,7 @@ export const create = mutation({
     if (urls.length === 0) {
       throw new Error("At least one image URL is required");
     }
-    return await ctx.db.insert("products", {
+    const productId = await ctx.db.insert("products", {
       vendorUserId: args.vendorUserId,
       productName: args.productName,
       productLocation: args.productLocation,
@@ -80,6 +80,36 @@ export const create = mutation({
       previousPrice: args.previousPrice,
       imageUrls: urls,
     });
+
+    const followers = await ctx.db
+      .query("follows")
+      .withIndex("by_target", (q) => q.eq("targetId", args.vendorUserId))
+      .collect();
+
+    if (followers.length > 0) {
+      const vendorProfile = await ctx.db
+        .query("profiles")
+        .withIndex("by_userId", (q) => q.eq("userId", args.vendorUserId))
+        .unique();
+      const vendorName = vendorProfile?.name ?? "A vendor";
+      const now = Date.now();
+      await Promise.all(
+        followers.map((f) =>
+          ctx.db.insert("notifications", {
+            userId: f.followerId,
+            type: "new_product",
+            title: "New Product Listed",
+            body: `${vendorName} just listed "${args.productName}"`,
+            read: false,
+            createdAt: now,
+            relatedProductId: productId,
+            fromUserId: args.vendorUserId,
+          })
+        )
+      );
+    }
+
+    return productId;
   },
 });
 

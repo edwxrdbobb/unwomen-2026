@@ -6,6 +6,7 @@ import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
 import { toast, Toaster } from 'react-hot-toast'
 import { Mail, Phone, MapPin, FileText, Camera, Edit2, CheckCircle, ArrowRight, Briefcase } from 'lucide-react'
+import { Avatar } from '@/components/ui/Avatar'
 import { useCloudinaryUpload } from '@/hooks/useCloudinaryUpload'
 
 const labelClass = "block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5 uppercase tracking-wide"
@@ -111,14 +112,7 @@ export default function MentorProfilePage() {
       {/* Avatar card */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-card p-6 flex items-center gap-5">
         <div className="relative flex-shrink-0">
-          {avatarUrl ? (
-            <img src={avatarUrl} alt="Avatar"
-              className="w-20 h-20 rounded-full object-cover ring-4 ring-[#d0eaf8] dark:ring-[#1a5a8a]/50" />
-          ) : (
-            <div className="w-20 h-20 rounded-full bg-[#399edc] flex items-center justify-center ring-4 ring-[#d0eaf8] dark:ring-[#1a5a8a]/50">
-              <span className="text-2xl font-bold text-white">{user.name.charAt(0).toUpperCase()}</span>
-            </div>
-          )}
+          <Avatar src={avatarUrl} name={user.name} size="xl" className="ring-4 ring-[#d0eaf8] dark:ring-[#1a5a8a]/50" />
           {profile?.isVerified && !editing && (
             <CheckCircle className="absolute -bottom-1 -right-1 w-6 h-6 text-green-500 bg-white dark:bg-gray-800 rounded-full" />
           )}

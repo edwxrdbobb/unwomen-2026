@@ -47,7 +47,7 @@ export default function CategoryVertical({ currentCategory }: { currentCategory:
         const isActive = active === cat.name;
         const Icon = CATEGORY_ICONS[cat.slug] ?? Tag;
         return (
-          <Link key={cat._id} href={`/products/shop/category/${encodeURIComponent(cat.name)}`}>
+          <Link key={cat._id} href={`/products/shop/category/${cat.name}`}>
             <div className={`flex items-center gap-2.5 px-2.5 py-2 rounded-xl transition-colors cursor-pointer ${
               isActive
                 ? 'bg-[#399edc] text-white'

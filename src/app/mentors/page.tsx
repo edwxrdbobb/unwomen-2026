@@ -5,6 +5,7 @@ import { useQuery, useMutation } from 'convex/react'
 import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
 import { Users, CheckCircle, MapPin, Briefcase, X, Send, AlertCircle } from 'lucide-react'
+import { Avatar } from '@/components/ui/Avatar'
 import toast from 'react-hot-toast'
 
 type Mentor = NonNullable<ReturnType<typeof useQuery<typeof api.profiles.listByRole>>>[number]
@@ -69,13 +70,7 @@ function RequestModal({ mentor, onClose }: { mentor: Mentor; onClose: () => void
           <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
             {/* Mentor preview */}
             <div className="flex items-center gap-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3">
-              {mentor.profileImageUrl ? (
-                <img src={mentor.profileImageUrl} alt={mentor.name} className="w-10 h-10 rounded-full object-cover flex-shrink-0" />
-              ) : (
-                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-white">{mentor.name.charAt(0).toUpperCase()}</span>
-                </div>
-              )}
+              <Avatar src={mentor.profileImageUrl} name={mentor.name} size="md" />
               <div className="min-w-0">
                 <p className="text-sm font-bold text-gray-900 dark:text-white truncate">{mentor.name}</p>
                 {mentor.expertise && <p className="text-xs text-blue-500 truncate">{mentor.expertise}</p>}
@@ -195,17 +190,7 @@ export default function MentorsPage() {
                     {/* Avatar + name */}
                     <div className="flex items-center gap-4 mb-4">
                       <div className="relative flex-shrink-0">
-                        {mentor.profileImageUrl ? (
-                          <img
-                            src={mentor.profileImageUrl}
-                            alt={mentor.name}
-                            className="w-16 h-16 rounded-full object-cover ring-4 ring-blue-50 dark:ring-blue-900/30"
-                          />
-                        ) : (
-                          <div className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center ring-4 ring-blue-50 dark:ring-blue-900/30">
-                            <span className="text-xl font-bold text-white">{mentor.name.charAt(0).toUpperCase()}</span>
-                          </div>
-                        )}
+                        <Avatar src={mentor.profileImageUrl} name={mentor.name} size="lg" className="ring-4 ring-blue-50 dark:ring-blue-900/30" />
                         {mentor.isVerified && (
                           <CheckCircle className="absolute -bottom-1 -right-1 w-5 h-5 text-green-500 bg-white dark:bg-gray-800 rounded-full" />
                         )}

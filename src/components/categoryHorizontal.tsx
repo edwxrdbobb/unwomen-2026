@@ -78,7 +78,7 @@ const CategoryHorizontal = () => {
           : categories.map((cat) => {
               const Icon = CATEGORY_ICONS[cat.slug] ?? Tag;
               return (
-                <Link key={cat._id} href={`/products/shop/category/${encodeURIComponent(cat.name)}`} className="flex-shrink-0 group">
+                <Link key={cat._id} href={`/products/shop/category/${cat.name}`} className="flex-shrink-0 group">
                   <div className="flex flex-col items-center w-28">
                     <div className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center transition-all group-hover:shadow-lg group-hover:scale-105 ${cat.color}`}>
                       <Icon className={`w-8 h-8 ${cat.textColor}`} strokeWidth={1.5} />

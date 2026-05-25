@@ -6,8 +6,10 @@ import { api } from '@cvx/_generated/api'
 import Link from 'next/link'
 import Loader from '@/components/Loader'
 import { CheckCircle, MapPin, Briefcase, Phone, Mail, Tag, Heart, Package } from 'lucide-react'
+import { Avatar } from '@/components/ui/Avatar'
 import { toast } from 'react-hot-toast'
 import { useState } from 'react'
+import FollowButton from '@/components/FollowButton'
 
 interface WishlistItem { id: string; uuid: string; productName: string; price: number; image: string; category?: string }
 
@@ -34,14 +36,7 @@ export default function UserPublicProfile() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
             {/* Avatar */}
             <div className="relative flex-shrink-0">
-              {profile.profileImageUrl ? (
-                <img src={profile.profileImageUrl} alt={profile.name}
-                  className="w-24 h-24 rounded-full object-cover ring-4 ring-blue-100 dark:ring-blue-900/30" />
-              ) : (
-                <div className="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center ring-4 ring-blue-100 dark:ring-blue-900/30">
-                  <span className="text-3xl font-bold text-white">{profile.name.charAt(0).toUpperCase()}</span>
-                </div>
-              )}
+              <Avatar src={profile.profileImageUrl} name={profile.name} size="xl" className="ring-4 ring-blue-100 dark:ring-blue-900/30" />
               {profile.isVerified && (
                 <CheckCircle className="absolute -bottom-1 -right-1 w-7 h-7 text-green-500 bg-white dark:bg-gray-800 rounded-full p-0.5" />
               )}
@@ -60,6 +55,9 @@ export default function UserPublicProfile() {
                   </span>
                 )}
               </div>
+              {profile.role === 'vendor' && (
+                <FollowButton targetId={profile.userId} targetType="vendor" className="mt-2 mb-1" />
+              )}
               {profile.expertise && (
                 <p className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-1.5 mb-1">
                   <Briefcase className="w-3.5 h-3.5 text-blue-500" /> {profile.expertise}

@@ -14,13 +14,39 @@ export const send = mutation({
     ),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("broadcasts", {
+    const broadcastId = await ctx.db.insert("broadcasts", {
       adminUserId: args.adminUserId,
       subject: args.subject,
       message: args.message,
       audience: args.audience,
       sentAt: Date.now(),
     });
+
+    const roleMap = { vendors: "vendor", mentors: "mentor", buyers: "buyer" } as const;
+    const profiles =
+      args.audience === "all"
+        ? await ctx.db.query("profiles").collect()
+        : await ctx.db
+            .query("profiles")
+            .withIndex("by_role", (q) => q.eq("role", roleMap[args.audience as keyof typeof roleMap]))
+            .collect();
+
+    const now = Date.now();
+    await Promise.all(
+      profiles.map((p) =>
+        ctx.db.insert("notifications", {
+          userId: p.userId,
+          type: "broadcast",
+          title: args.subject,
+          body: args.message,
+          read: false,
+          createdAt: now,
+          fromUserId: args.adminUserId,
+        })
+      )
+    );
+
+    return broadcastId;
   },
 });
 

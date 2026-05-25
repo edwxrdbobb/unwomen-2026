@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import { useQuery } from 'convex/react'
 import { api } from '@cvx/_generated/api'
+import { Avatar } from '@/components/ui/Avatar'
 
 export default function ProfilePage() {
   const { user, logout } = useAuth()
@@ -33,13 +34,7 @@ export default function ProfilePage() {
         <div className="grid grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded-lg shadow">
             <div className="flex items-center">
-              {profile?.profileImageUrl ? (
-                <img src={profile.profileImageUrl} alt="Profile" className="w-24 h-24 rounded-full object-cover mr-4" />
-              ) : (
-                <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-2xl font-bold text-gray-500 mr-4">
-                  {user.name[0]}
-                </div>
-              )}
+              <Avatar src={profile?.profileImageUrl} name={user.name} size="xl" className="mr-4" />
               <div>
                 <h2 className="text-2xl font-bold text-[#2d8bc8]">{user.name}</h2>
                 <p className="text-gray-600 capitalize">{user.role}</p>

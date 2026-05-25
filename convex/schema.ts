@@ -188,4 +188,32 @@ export default defineSchema({
     ),
     sentAt: v.number(),
   }).index("by_admin", ["adminUserId"]),
+
+  notifications: defineTable({
+    userId: v.string(),
+    type: v.union(
+      v.literal("broadcast"),
+      v.literal("new_follower"),
+      v.literal("new_product"),
+      v.literal("account_approved"),
+    ),
+    title: v.string(),
+    body: v.string(),
+    read: v.boolean(),
+    createdAt: v.number(),
+    relatedProductId: v.optional(v.id("products")),
+    relatedBusinessId: v.optional(v.id("businesses")),
+    fromUserId: v.optional(v.string()),
+  })
+    .index("by_user_created", ["userId", "createdAt"])
+    .index("by_user_read", ["userId", "read"]),
+
+  follows: defineTable({
+    followerId: v.string(),
+    targetId: v.string(),
+    targetType: v.union(v.literal("vendor"), v.literal("business")),
+  })
+    .index("by_follower", ["followerId"])
+    .index("by_target", ["targetId"])
+    .index("by_follower_target", ["followerId", "targetId"]),
 });

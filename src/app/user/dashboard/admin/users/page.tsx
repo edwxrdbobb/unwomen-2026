@@ -6,6 +6,7 @@ import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
 import { toast, Toaster } from 'react-hot-toast'
 import { Users, Plus, Shield, CheckCircle, Trash2, ChevronDown, X, Search, Pencil, Check } from 'lucide-react'
+import { Avatar } from '@/components/ui/Avatar'
 
 const ROLES = ['all', 'buyer', 'vendor', 'mentor', 'super_admin'] as const
 type RoleFilter = typeof ROLES[number]
@@ -243,10 +244,7 @@ export default function AdminUsersPage() {
                   <tr key={u._id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                          style={{ backgroundColor: '#399edc' }}>
-                          {u.name.charAt(0).toUpperCase()}
-                        </div>
+                        <Avatar src={u.profileImageUrl} name={u.name} size="sm" />
                         <div>
                           <p className="text-sm font-semibold text-gray-900 dark:text-white">{u.name}</p>
                           <p className="text-xs text-gray-400 dark:text-gray-500">{u.email}</p>
