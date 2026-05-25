@@ -8,7 +8,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import {
   Users, Clock, CheckCircle, XCircle, Building2,
   Mail, Phone, MapPin, Loader2, GitPullRequest,
-  MessageSquare, CalendarDays,
+  MessageSquare, CalendarDays, User,
 } from 'lucide-react'
 import Link from 'next/link'
 import type { Id } from '@cvx/_generated/dataModel'
@@ -121,10 +121,8 @@ export default function MenteesPage() {
                           <img src={profile.profileImageUrl} alt={profile.name}
                             className="w-12 h-12 rounded-full object-cover ring-2 ring-yellow-200 dark:ring-yellow-800" />
                         ) : (
-                          <div className="w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center ring-2 ring-yellow-200 dark:ring-yellow-800">
-                            <span className="text-base font-bold text-yellow-600 dark:text-yellow-400">
-                              {(profile?.name ?? 'V').charAt(0).toUpperCase()}
-                            </span>
+                          <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center ring-2 ring-yellow-200 dark:ring-yellow-800">
+                            <User className="w-5 h-5 text-gray-400 dark:text-gray-300" />
                           </div>
                         )}
                       </div>
@@ -224,10 +222,8 @@ export default function MenteesPage() {
                         <img src={profile.profileImageUrl} alt={profile?.name}
                           className="w-12 h-12 rounded-full object-cover ring-2 ring-emerald-200 dark:ring-emerald-800" />
                       ) : (
-                        <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center ring-2 ring-emerald-200 dark:ring-emerald-800">
-                          <span className="text-base font-bold text-emerald-600 dark:text-emerald-400">
-                            {(profile?.name ?? 'V').charAt(0).toUpperCase()}
-                          </span>
+                        <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center ring-2 ring-emerald-200 dark:ring-emerald-800">
+                          <User className="w-5 h-5 text-gray-400 dark:text-gray-300" />
                         </div>
                       )}
                     </div>
@@ -309,10 +305,8 @@ export default function MenteesPage() {
                 const profile = m.menteeProfile
                 return (
                   <div key={m._id} className="flex items-center gap-4 px-5 py-4 opacity-70">
-                    <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center flex-shrink-0">
-                      <span className="text-sm font-bold text-gray-500">
-                        {(profile?.name ?? 'V').charAt(0).toUpperCase()}
-                      </span>
+                    <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center flex-shrink-0">
+                      <User className="w-4 h-4 text-gray-400 dark:text-gray-300" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-gray-700 dark:text-gray-200">

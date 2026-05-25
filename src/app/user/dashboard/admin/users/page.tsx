@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext'
 import { toast, Toaster } from 'react-hot-toast'
 import { Users, Plus, Shield, CheckCircle, Trash2, ChevronDown, X, Search, Pencil, Check } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
+import { Pagination } from '@/components/ui/Pagination'
 
 const ROLES = ['all', 'buyer', 'vendor', 'mentor', 'super_admin'] as const
 type RoleFilter = typeof ROLES[number]
@@ -25,6 +26,8 @@ export default function AdminUsersPage() {
   const convex = useConvex()
   const [roleFilter, setRoleFilter] = useState<RoleFilter>('all')
   const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
+  const PAGE_SIZE = 15
   const [showCreate, setShowCreate] = useState(false)
   const [saving, setSaving] = useState(false)
   const [editingUserId, setEditingUserId] = useState<string | null>(null)
@@ -45,6 +48,9 @@ export default function AdminUsersPage() {
         u.email.toLowerCase().includes(search.toLowerCase())
       )
     : users
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -202,13 +208,13 @@ export default function AdminUsersPage() {
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1 max-w-xs">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <input value={search} onChange={e => setSearch(e.target.value)}
+          <input value={search} onChange={e => { setSearch(e.target.value); setPage(1) }}
             placeholder="Search users…"
             className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl text-sm outline-none focus:border-[#399edc] dark:bg-gray-800 dark:text-white transition-colors" />
         </div>
         <div className="flex gap-1.5 flex-wrap">
           {ROLES.map(r => (
-            <button key={r} onClick={() => setRoleFilter(r)}
+            <button key={r} onClick={() => { setRoleFilter(r); setPage(1) }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-colors ${
                 roleFilter === r
                   ? 'text-white'
@@ -239,7 +245,7 @@ export default function AdminUsersPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 dark:divide-gray-700">
-              {filtered.map(u => (
+              {paginated.map(u => (
                 <>
                   <tr key={u._id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                     <td className="px-6 py-4">
@@ -345,7 +351,13 @@ export default function AdminUsersPage() {
           </table>
         )}
       </div>
-      <p className="text-xs text-gray-400 dark:text-gray-500 text-right">{filtered.length} user{filtered.length !== 1 ? 's' : ''} shown</p>
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        totalItems={filtered.length}
+        pageSize={PAGE_SIZE}
+      />
     </div>
   )
 }

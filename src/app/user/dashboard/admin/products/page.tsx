@@ -8,6 +8,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { Package, Trash2, Search, Pencil, Check, X, Plus, ChevronDown } from 'lucide-react'
 import { ProductImage } from '@/components/ui/ProductImage'
 import { MultiImageUpload } from '@/components/ui/ImageUpload'
+import { Pagination } from '@/components/ui/Pagination'
 import type { Id } from '@cvx/_generated/dataModel'
 
 type EditForm = {
@@ -34,6 +35,8 @@ export default function AdminProductsPage() {
   const { user: admin } = useAuth()
   const convex = useConvex()
   const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
+  const PAGE_SIZE = 15
   const [editingId, setEditingId] = useState<Id<'products'> | null>(null)
   const [editForm, setEditForm] = useState<EditForm>({
     productName: '', category: '', currentPrice: '', previousPrice: '', productLocation: '', discription: '',
@@ -53,6 +56,9 @@ export default function AdminProductsPage() {
         p.category.toLowerCase().includes(search.toLowerCase())
       )
     : products
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const startEdit = (p: typeof products[0]) => {
     setEditForm({
@@ -268,7 +274,7 @@ export default function AdminProductsPage() {
 
       <div className="relative max-w-sm">
         <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-        <input value={search} onChange={e => setSearch(e.target.value)}
+        <input value={search} onChange={e => { setSearch(e.target.value); setPage(1) }}
           placeholder="Search by name or category…"
           className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl text-sm outline-none focus:border-[#399edc] dark:bg-gray-800 dark:text-white transition-colors" />
       </div>
@@ -291,7 +297,7 @@ export default function AdminProductsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 dark:divide-gray-700">
-              {filtered.map(p => (
+              {paginated.map(p => (
                 <>
                   <tr key={p._id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                     <td className="px-6 py-4">
@@ -391,7 +397,13 @@ export default function AdminProductsPage() {
           </table>
         )}
       </div>
-      <p className="text-xs text-gray-400 dark:text-gray-500 text-right">{filtered.length} product{filtered.length !== 1 ? 's' : ''} shown</p>
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        totalItems={filtered.length}
+        pageSize={PAGE_SIZE}
+      />
     </div>
   )
 }

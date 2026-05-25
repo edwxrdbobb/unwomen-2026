@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Search, Edit2, Trash2, PlusCircle, Package, MapPin, Tag } from 'lucide-react'
+import { Pagination } from '@/components/ui/Pagination'
 import { useQuery, useMutation } from 'convex/react'
 import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
@@ -14,6 +15,8 @@ export default function ProductsPage() {
   const { user } = useAuth()
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState('')
+  const [page, setPage] = useState(1)
+  const PAGE_SIZE = 12
   const [deleting, setDeleting] = useState<string | null>(null)
 
   const vendorId = user ? String(user.id) : ''
@@ -34,6 +37,9 @@ export default function ProductsPage() {
     p.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     p.category.toLowerCase().includes(searchTerm.toLowerCase())
   )
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const handleDelete = async (id: Id<'products'>) => {
     if (!vendorId || !confirm('Delete this product?')) return
@@ -73,7 +79,7 @@ export default function ProductsPage() {
           type="text"
           placeholder="Search products..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => { setSearchTerm(e.target.value); setPage(1) }}
           className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl text-sm text-gray-700 dark:text-gray-200 dark:bg-gray-700 outline-none focus:border-blue-400 transition-colors"
         />
       </div>
@@ -113,7 +119,7 @@ export default function ProductsPage() {
       {filtered.length > 0 && (
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-card overflow-hidden">
           <div className="divide-y divide-gray-100 dark:divide-gray-700">
-            {filtered.map((product) => (
+            {paginated.map((product) => (
               <div key={product.id} className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                 <img src={product.thumb} alt={product.productName}
                   className="w-14 h-14 object-cover rounded-xl bg-gray-100 dark:bg-gray-700 flex-shrink-0" />
@@ -149,6 +155,15 @@ export default function ProductsPage() {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="px-5 pb-4">
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={setPage}
+              totalItems={filtered.length}
+              pageSize={PAGE_SIZE}
+            />
           </div>
         </div>
       )}

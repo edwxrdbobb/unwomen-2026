@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useId } from 'react'
-import { Search, X, ChevronDown, Check } from 'lucide-react'
+import { Search, X, ChevronDown, Check, User } from 'lucide-react'
 
 export interface SelectOption {
   value: string
@@ -92,10 +92,8 @@ export default function SearchableSelect({
               <img src={selected.avatar} alt="" className="w-6 h-6 rounded-full object-cover flex-shrink-0" />
             )}
             {!selected.avatar && (
-              <div className="w-6 h-6 rounded-full bg-[#399edc]/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-[10px] font-bold text-[#399edc]">
-                  {selected.label.charAt(0).toUpperCase()}
-                </span>
+              <div className="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center flex-shrink-0">
+                <User className="w-3 h-3 text-gray-400 dark:text-gray-300" />
               </div>
             )}
             <div className="flex-1 min-w-0">
@@ -164,10 +162,8 @@ export default function SearchableSelect({
                       {opt.avatar ? (
                         <img src={opt.avatar} alt="" className="w-7 h-7 rounded-full object-cover flex-shrink-0" />
                       ) : (
-                        <div className="w-7 h-7 rounded-full bg-[#399edc]/15 flex items-center justify-center flex-shrink-0">
-                          <span className="text-xs font-bold text-[#399edc]">
-                            {opt.label.charAt(0).toUpperCase()}
-                          </span>
+                        <div className="w-7 h-7 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center flex-shrink-0">
+                          <User className="w-3.5 h-3.5 text-gray-400 dark:text-gray-300" />
                         </div>
                       )}
                       <div className="flex-1 min-w-0">

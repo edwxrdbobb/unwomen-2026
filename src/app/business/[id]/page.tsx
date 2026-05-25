@@ -38,8 +38,8 @@ function OwnerProfileSection({ userId }: { userId: string }) {
               <img src={profile.profileImageUrl} alt={profile.name}
                 className="w-20 h-20 rounded-full object-cover ring-2 ring-blue-100 dark:ring-blue-900/30" />
             ) : (
-              <div className="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center ring-2 ring-blue-100 dark:ring-blue-900/30">
-                <span className="text-2xl font-bold text-white">{profile.name.charAt(0).toUpperCase()}</span>
+              <div className="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center ring-2 ring-blue-100 dark:ring-blue-900/30">
+                <User className="w-8 h-8 text-gray-400 dark:text-gray-300" />
               </div>
             )}
           </div>

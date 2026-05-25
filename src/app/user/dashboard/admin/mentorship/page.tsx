@@ -8,7 +8,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import {
   HeartHandshake, UserCheck, Users, Building2,
   XCircle, CheckCircle, Loader2,
-  Clock, GitPullRequest, Link2,
+  Clock, GitPullRequest, Link2, User,
 } from 'lucide-react'
 import Link from 'next/link'
 import type { Id } from '@cvx/_generated/dataModel'
@@ -253,10 +253,8 @@ export default function AdminMentorshipPage() {
                   <tr key={p._id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center flex-shrink-0">
-                          <span className="text-xs font-bold text-violet-600 dark:text-violet-400">
-                            {p.mentorName.charAt(0).toUpperCase()}
-                          </span>
+                        <div className="w-7 h-7 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center flex-shrink-0">
+                          <User className="w-3.5 h-3.5 text-gray-400 dark:text-gray-300" />
                         </div>
                         <div>
                           <p className="text-xs font-semibold text-gray-800 dark:text-gray-100">{p.mentorName}</p>
@@ -266,10 +264,8 @@ export default function AdminMentorshipPage() {
                     </td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
-                          <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
-                            {p.menteeName.charAt(0).toUpperCase()}
-                          </span>
+                        <div className="w-7 h-7 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center flex-shrink-0">
+                          <User className="w-3.5 h-3.5 text-gray-400 dark:text-gray-300" />
                         </div>
                         <div>
                           <p className="text-xs font-semibold text-gray-800 dark:text-gray-100">{p.menteeName}</p>

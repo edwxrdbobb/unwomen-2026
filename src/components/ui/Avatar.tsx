@@ -38,19 +38,14 @@ export function Avatar({ src, name, className = '', size = 'md', style }: Avatar
 
   const sizeClass = SIZE_CLASSES[size]
   const iconClass = ICON_CLASSES[size]
-  const initial = name?.trim().charAt(0).toUpperCase()
 
   if (!src || failed) {
     return (
       <div
-        className={`rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white select-none ${sizeClass} ${className}`}
-        style={{ backgroundColor: '#399edc', ...style }}
+        className={`rounded-full flex items-center justify-center flex-shrink-0 bg-gray-200 dark:bg-gray-600 select-none ${sizeClass} ${className}`}
+        style={style}
       >
-        {initial ? (
-          <span>{initial}</span>
-        ) : (
-          <User className={`${iconClass} opacity-80`} />
-        )}
+        <User className={`${iconClass} text-gray-400 dark:text-gray-300`} />
       </div>
     )
   }

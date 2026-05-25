@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LucideIcon, LogOut, ChevronRight, ChevronDown } from 'lucide-react'
+import { LucideIcon, LogOut, ChevronRight, ChevronDown, User } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import logo from '@/images/unwomenlogo.png'
 import { useState, useEffect } from 'react'
@@ -84,7 +84,7 @@ export default function DashboardLayout({ children, nav, role }: DashboardLayout
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* ── Sidebar ── */}
-      <aside className="w-64 flex-shrink-0 flex flex-col" style={{ backgroundColor: '#399edc' }}>
+      <aside className="fixed left-0 top-0 h-screen w-64 flex flex-col z-30 overflow-y-auto" style={{ backgroundColor: '#399edc' }}>
         {/* Logo */}
         <div className="px-5 py-5 border-b border-white/10">
           <Link href="/">
@@ -96,7 +96,7 @@ export default function DashboardLayout({ children, nav, role }: DashboardLayout
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
+        <nav className="flex-1 px-3 py-5 space-y-0.5">
           {nav.map((item) => {
             const active = isParentActive(item)
             const hasChildren = !!item.children?.length
@@ -190,8 +190,8 @@ export default function DashboardLayout({ children, nav, role }: DashboardLayout
         <div className="px-3 py-4 border-t border-white/10 space-y-2">
           {user && (
             <div className="flex items-center gap-3 px-4 py-2">
-              <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-gray-900 font-bold text-sm flex-shrink-0">
-                {user.name.charAt(0).toUpperCase()}
+              <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center flex-shrink-0">
+                <User className="w-4 h-4 text-gray-500 dark:text-gray-300" />
               </div>
               <div className="min-w-0">
                 <p className="text-white text-xs font-semibold truncate">{user.name}</p>
@@ -210,7 +210,7 @@ export default function DashboardLayout({ children, nav, role }: DashboardLayout
       </aside>
 
       {/* ── Main Content ── */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 ml-64">
         {/* Top bar */}
         <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-8 py-4 flex items-center justify-between">
           <div>

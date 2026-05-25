@@ -8,7 +8,7 @@ import Loader from '@/components/Loader'
 import Link from 'next/link'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { ArrowLeft, Clock, Heart, MessageCircle, Send, Trash2, BookOpen } from 'lucide-react'
+import { ArrowLeft, Clock, Heart, MessageCircle, Send, Trash2, BookOpen, User } from 'lucide-react'
 
 const CATEGORY_COLORS: Record<string, string> = {
   'Business Growth': 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400',
@@ -147,8 +147,8 @@ function CommentsSection({ postId, userId }: { postId: string; userId?: string }
           <div className="space-y-4">
             {comments.map((comment) => (
               <div key={comment._id} className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 text-white text-sm font-bold">
-                  {comment.authorUserId.charAt(0).toUpperCase()}
+                <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center flex-shrink-0">
+                  <User className="w-4 h-4 text-gray-400 dark:text-gray-300" />
                 </div>
                 <div className="flex-1 bg-gray-50 dark:bg-gray-700/50 rounded-xl px-4 py-3">
                   <div className="flex items-center justify-between gap-2 mb-1">

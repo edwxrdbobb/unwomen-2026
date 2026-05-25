@@ -6,6 +6,7 @@ import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
 import { toast, Toaster } from 'react-hot-toast'
 import { Building2, Trash2, Search, Globe, Mail, Phone, Pencil, Plus, X, Check } from 'lucide-react'
+import { Pagination } from '@/components/ui/Pagination'
 import { BusinessImage } from '@/components/ui/BusinessImage'
 import type { Id } from '@cvx/_generated/dataModel'
 
@@ -30,6 +31,8 @@ export default function AdminBusinessesPage() {
   const convex = useConvex()
   const [search, setSearch] = useState('')
   const [catFilter, setCatFilter] = useState('all')
+  const [page, setPage] = useState(1)
+  const PAGE_SIZE = 12
   const [showCreate, setShowCreate] = useState(false)
   const [createForm, setCreateForm] = useState<BizForm & { vendorUserId: string }>({ ...blankBiz, vendorUserId: '' })
   const [editingId, setEditingId] = useState<Id<'businesses'> | null>(null)
@@ -46,6 +49,9 @@ export default function AdminBusinessesPage() {
       b.businessLocation.toLowerCase().includes(search.toLowerCase())
     return matchesCat && matchesSearch
   })
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -220,13 +226,13 @@ export default function AdminBusinessesPage() {
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <input value={search} onChange={e => setSearch(e.target.value)}
+          <input value={search} onChange={e => { setSearch(e.target.value); setPage(1) }}
             placeholder="Search businesses…"
             className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl text-sm outline-none focus:border-[#399edc] dark:bg-gray-800 dark:text-white transition-colors" />
         </div>
         <div className="flex gap-1.5">
           {['all', 'SME', 'MACRO', 'MICRO', 'SOHO'].map(c => (
-            <button key={c} onClick={() => setCatFilter(c)}
+            <button key={c} onClick={() => { setCatFilter(c); setPage(1) }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                 catFilter === c ? 'text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
               }`}
@@ -243,7 +249,7 @@ export default function AdminBusinessesPage() {
             <Building2 className="w-10 h-10 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
             <p className="text-gray-500 dark:text-gray-400 font-medium">No businesses found</p>
           </div>
-        ) : filtered.map(b => (
+        ) : paginated.map(b => (
           <div key={b._id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-card overflow-hidden">
             {editingId === b._id ? (
               <div className="p-4">
@@ -315,7 +321,13 @@ export default function AdminBusinessesPage() {
           </div>
         ))}
       </div>
-      <p className="text-xs text-gray-400 dark:text-gray-500 text-right">{filtered.length} business{filtered.length !== 1 ? 'es' : ''} shown</p>
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        totalItems={filtered.length}
+        pageSize={PAGE_SIZE}
+      />
     </div>
   )
 }

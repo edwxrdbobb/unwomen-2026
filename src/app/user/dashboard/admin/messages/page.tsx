@@ -5,7 +5,7 @@ import { useQuery, useConvex } from 'convex/react'
 import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
 import { toast, Toaster } from 'react-hot-toast'
-import { MessageSquare, ArrowLeft, UserCircle, XCircle } from 'lucide-react'
+import { MessageSquare, ArrowLeft, UserCircle, XCircle, User } from 'lucide-react'
 import type { Id } from '@cvx/_generated/dataModel'
 
 export default function AdminMessagesPage() {
@@ -70,9 +70,8 @@ export default function AdminMessagesPage() {
             <div className="divide-y divide-gray-50 dark:divide-gray-700">
               {messages.map(msg => (
                 <div key={msg._id} className="px-6 py-4 flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                    style={{ backgroundColor: '#399edc' }}>
-                    {msg.senderName.charAt(0).toUpperCase()}
+                  <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center flex-shrink-0">
+                    <User className="w-4 h-4 text-gray-400 dark:text-gray-300" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
