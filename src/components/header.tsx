@@ -132,8 +132,8 @@ export default function Header() {
     if (loading) {
       return (
         <div className="flex items-center gap-3">
-          <div className="w-16 h-5 bg-white/20 animate-pulse rounded-full" />
-          <div className="w-20 h-8 bg-white/20 animate-pulse rounded-full" />
+          <div className="w-16 h-5 bg-gray-200 dark:bg-white/20 animate-pulse rounded-full" />
+          <div className="w-20 h-8 bg-gray-200 dark:bg-white/20 animate-pulse rounded-full" />
         </div>
       )
     }
@@ -149,8 +149,8 @@ export default function Header() {
         <Link href={dashboardHref} className="flex items-center gap-2">
           {renderAvatar()}
           <div className="hidden lg:block text-left">
-            <p className="text-[11px] text-white/70 leading-none">Welcome back</p>
-            <p className="text-sm font-semibold text-white leading-none mt-0.5">{user.name}</p>
+            <p className="text-[11px] text-gray-500 dark:text-white/70 leading-none">Welcome back</p>
+            <p className="text-sm font-semibold text-gray-900 dark:text-white leading-none mt-0.5">{user.name}</p>
           </div>
         </Link>
       )
@@ -207,7 +207,7 @@ export default function Header() {
             {/* Add Product — vendor only */}
             {user?.role === 'vendor' && (
               <Link href="/user/dashboard/vendor/products/create"
-                className="hidden sm:flex items-center gap-1.5 bg-white/20 hover:bg-white/30 border border-white/40 text-white text-xs font-bold px-3 py-2 rounded-full transition-colors flex-shrink-0">
+                className="hidden sm:flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-white/20 dark:hover:bg-white/30 border border-gray-300 dark:border-white/40 text-gray-700 dark:text-white text-xs font-bold px-3 py-2 rounded-full transition-colors flex-shrink-0">
                 <Plus className="w-3.5 h-3.5" />
                 Add Product
               </Link>
@@ -215,10 +215,10 @@ export default function Header() {
 
             {/* Wishlist */}
             {user && (
-              <Link href="/wishlist" className="relative p-2 rounded-full hover:bg-white/20 transition-colors group bg-yellow-80 dark:hover:bg-blue-900/30 transition-colors">
-                <Heart className="w-5 h-5 text-white" />
+              <Link href="/wishlist" className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-blue-900/30 transition-colors group">
+                <Heart className="w-5 h-5 text-gray-600 dark:text-white" />
                 {wishlistCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-blue-500 text-gray-900 text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                  <span className="absolute -top-0.5 -right-0.5 bg-blue-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                     {wishlistCount}
                   </span>
                 )}
@@ -228,7 +228,7 @@ export default function Header() {
             {/* Dark mode toggle */}
             <ThemeToggle />
 
-            <div className="hidden sm:block w-px h-6 bg-white/30 mx-1" />
+            <div className="hidden sm:block w-px h-6 bg-gray-200 dark:bg-white/30 mx-1" />
 
             <div className="hidden sm:flex items-center">
               {renderAuthLinks()}
@@ -236,13 +236,13 @@ export default function Header() {
 
             {/* Mobile hamburger */}
             <button
-              className="sm:hidden p-2 rounded-full hover:bg-white/20 transition-colors"
+              className="sm:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/20 transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
               {isMenuOpen
-                ? <X className="w-5 h-5 text-white" />
-                : <Menu className="w-5 h-5 text-white" />}
+                ? <X className="w-5 h-5 text-gray-600 dark:text-white" />
+                : <Menu className="w-5 h-5 text-gray-600 dark:text-white" />}
             </button>
           </div>
         </div>
