@@ -8,7 +8,8 @@
     "convex:seed": "convex run products:seedIfEmpty",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "node scripts/migrate.mjs"
   },
   "dependencies": {
     "autoprefixer": "^10.4.20",
