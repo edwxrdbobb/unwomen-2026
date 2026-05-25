@@ -275,7 +275,7 @@ export default function Header() {
             className="flex items-center gap-1.5 bg-yellow-400 hover:bg-yellow-500 text-gray-900 text-xs font-bold px-4 py-1.5 rounded-full flex-shrink-0 transition-colors"
           >
             <LayoutGrid className="w-3.5 h-3.5" />
-            Categories
+            Shop
           </Link>
 
           <div className="h-4 w-px bg-white/30 flex-shrink-0" />

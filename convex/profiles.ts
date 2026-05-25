@@ -74,6 +74,15 @@ export const listByRole = query({
   },
 });
 
+/** Admin: all profiles that have not yet been verified. */
+export const listUnverified = query({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db.query("profiles").order("desc").collect();
+    return all.filter((p) => !p.isVerified);
+  },
+});
+
 export const update = mutation({
   args: {
     userId: v.string(),

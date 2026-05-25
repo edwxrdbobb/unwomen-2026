@@ -34,7 +34,7 @@ export default function CategoryVertical({ currentCategory }: { currentCategory:
                 isActive ? 'bg-white/20' : cat.color
               }`}>
                 <CategoryIcon
-                  value={cat.emoji}
+                  slug={cat.slug}
                   className={`w-4 h-4 ${isActive ? 'text-white' : cat.textColor}`}
                   strokeWidth={1.5}
                 />

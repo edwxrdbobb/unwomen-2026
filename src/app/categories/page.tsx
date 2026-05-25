@@ -4,29 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useQuery } from 'convex/react'
 import { api } from '@cvx/_generated/api'
-import { ArrowRight, Building2, LayoutGrid, Sparkles, Shirt, Gem, UtensilsCrossed, Leaf, Palette, Home, Layers, HeartPulse, Baby, Scissors, CakeSlice, Pencil, BookOpen, Wind, PartyPopper, Smartphone, Paperclip, Tag } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
-
-const CATEGORY_ICONS: Record<string, LucideIcon> = {
-  'beauty-skincare':        Sparkles,
-  'fashion-clothing':       Shirt,
-  'accessories-jewellery':  Gem,
-  'food-beverages':         UtensilsCrossed,
-  'farm-produce':           Leaf,
-  'crafts-artwork':         Palette,
-  'home-household':         Home,
-  'textiles-fabrics':       Layers,
-  'health-wellness':        HeartPulse,
-  'baby-kids':              Baby,
-  'hair-beauty-services':   Scissors,
-  'catering-baking':        CakeSlice,
-  'tailoring-design':       Pencil,
-  'education-training':     BookOpen,
-  'cleaning-home-services': Wind,
-  'event-planning':         PartyPopper,
-  'electronics-tech':       Smartphone,
-  'stationery-office':      Paperclip,
-}
+import { ArrowRight, Building2, LayoutGrid } from 'lucide-react'
+import { CategoryIcon } from '@/components/ui/CategoryIcon'
 import macro from '@/images/MACRO.png'
 import micro from '@/images/MICRO.jpeg'
 import sme from '@/images/SME.jpg'
@@ -164,7 +143,7 @@ export default function CategoriesPage() {
                     <div className="h-0.5 bg-gradient-to-r from-[#399edc] to-yellow-400" />
                     <div className="p-5 flex flex-col flex-1">
                       <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-3 ${cat.color} dark:bg-gray-700 group-hover:scale-110 transition-transform duration-300`}>
-                        {(() => { const Icon = CATEGORY_ICONS[cat.slug] ?? Tag; return <Icon className={`w-6 h-6 ${cat.textColor} dark:text-gray-300`} strokeWidth={1.5} /> })()}
+                        <CategoryIcon slug={cat.slug} className={`w-6 h-6 ${cat.textColor} dark:text-gray-300`} strokeWidth={1.5} />
                       </div>
                       <h3 className={`text-sm font-bold mb-1 group-hover:text-[#399edc] transition-colors ${cat.textColor} dark:text-white`}>
                         {cat.name}

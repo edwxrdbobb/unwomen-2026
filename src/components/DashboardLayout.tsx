@@ -12,12 +12,14 @@ interface NavChild {
   name: string
   href: string
   icon?: LucideIcon
+  badge?: number
 }
 
 interface NavItem {
   name: string
   href: string
   icon: LucideIcon
+  badge?: number
   children?: NavChild[]
 }
 
@@ -121,6 +123,11 @@ export default function DashboardLayout({ children, nav, role }: DashboardLayout
                     <span className={`flex-1 ${active && !hasChildren ? 'text-gray-800 font-semibold' : ''}`}>
                       {item.name}
                     </span>
+                    {item.badge != null && item.badge > 0 && (
+                      <span className="min-w-[18px] h-[18px] px-1 rounded-full bg-yellow-400 text-gray-900 text-[10px] font-bold flex items-center justify-center flex-shrink-0">
+                        {item.badge > 99 ? '99+' : item.badge}
+                      </span>
+                    )}
                     {active && !hasChildren && (
                       <ChevronRight className="w-3.5 h-3.5" style={{ color: '#399edc' }} />
                     )}
@@ -162,8 +169,13 @@ export default function DashboardLayout({ children, nav, role }: DashboardLayout
                               style={childActive ? { color: '#399edc' } : {}}
                             />
                           )}
-                          <span>{child.name}</span>
-                          {childActive && <ChevronRight className="w-3 h-3 ml-auto" style={{ color: '#399edc' }} />}
+                          <span className="flex-1">{child.name}</span>
+                          {child.badge != null && child.badge > 0 && (
+                            <span className="min-w-[18px] h-[18px] px-1 rounded-full bg-yellow-400 text-gray-900 text-[10px] font-bold flex items-center justify-center flex-shrink-0">
+                              {child.badge > 99 ? '99+' : child.badge}
+                            </span>
+                          )}
+                          {childActive && <ChevronRight className="w-3 h-3 flex-shrink-0" style={{ color: '#399edc' }} />}
                         </Link>
                       )
                     })}

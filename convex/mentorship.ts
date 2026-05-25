@@ -92,7 +92,7 @@ export const listRequestsByMentor = query({
 
 /**
  * Mentor: accept or decline a request directed at them.
- * Accepting immediately activates the mentorship.
+ * Accepting immediately activates the mentorship and notifies the vendor.
  */
 export const respondToRequest = mutation({
   args: {
@@ -121,6 +121,36 @@ export const respondToRequest = mutation({
         requestId: id,
         startedAt: Date.now(),
         isActive: true,
+      });
+
+      // Notify the vendor their mentorship is now active
+      const mentorProfile = await ctx.db
+        .query("profiles")
+        .withIndex("by_userId", (q) => q.eq("userId", mentorId))
+        .unique();
+      await ctx.db.insert("notifications", {
+        userId: req.vendorUserId,
+        type: "mentorship_accepted",
+        title: "Mentorship Accepted",
+        body: `${mentorProfile?.name ?? "Your mentor"} has accepted your mentorship. You can now connect with them.`,
+        read: false,
+        createdAt: Date.now(),
+        fromUserId: mentorId,
+      });
+    } else {
+      // Notify the vendor the request was declined
+      const mentorProfile = await ctx.db
+        .query("profiles")
+        .withIndex("by_userId", (q) => q.eq("userId", mentorId))
+        .unique();
+      await ctx.db.insert("notifications", {
+        userId: req.vendorUserId,
+        type: "mentorship_rejected",
+        title: "Mentorship Declined",
+        body: `${mentorProfile?.name ?? "The assigned mentor"} was unable to take on your mentorship at this time.`,
+        read: false,
+        createdAt: Date.now(),
+        fromUserId: mentorId,
       });
     }
   },
@@ -151,7 +181,8 @@ export const reviewRequest = mutation({
 // ---------------------------------------------------------------------------
 
 /**
- * Admin: accept a request and activate the mentorship in one step.
+ * Admin: accept a vendor's request and activate the mentorship.
+ * The admin has reviewed this request — notify both parties.
  */
 export const createMentorship = mutation({
   args: {
@@ -167,8 +198,9 @@ export const createMentorship = mutation({
       reviewedAt: Date.now(),
       reviewedBy: adminUserId,
       assignedMentorId: mentorId,
+      mentorId,
     });
-    return await ctx.db.insert("mentorships", {
+    const mentorshipId = await ctx.db.insert("mentorships", {
       mentorId,
       menteeUserId: request.vendorUserId,
       businessId: request.businessId,
@@ -176,10 +208,42 @@ export const createMentorship = mutation({
       startedAt: Date.now(),
       isActive: true,
     });
+
+    const [mentorProfile, vendorProfile] = await Promise.all([
+      ctx.db.query("profiles").withIndex("by_userId", (q) => q.eq("userId", mentorId)).unique(),
+      ctx.db.query("profiles").withIndex("by_userId", (q) => q.eq("userId", request.vendorUserId)).unique(),
+    ]);
+    const now = Date.now();
+
+    // Notify the mentor they have a new mentee
+    await ctx.db.insert("notifications", {
+      userId: mentorId,
+      type: "mentorship_accepted",
+      title: "New Mentee Assigned",
+      body: `You have been assigned to mentor ${vendorProfile?.name ?? "a vendor"}. Head to your dashboard to get started.`,
+      read: false,
+      createdAt: now,
+      fromUserId: adminUserId,
+    });
+    // Notify the vendor their request was accepted
+    await ctx.db.insert("notifications", {
+      userId: request.vendorUserId,
+      type: "mentorship_accepted",
+      title: "Mentorship Request Accepted",
+      body: `Your mentorship request has been approved. ${mentorProfile?.name ?? "A mentor"} will be working with you.`,
+      read: false,
+      createdAt: now,
+      fromUserId: adminUserId,
+    });
+
+    return mentorshipId;
   },
 });
 
-/** Admin: directly connect a vendor to a mentor without a prior request. */
+/**
+ * Admin: propose a direct pairing. Creates a pending request the mentor must accept.
+ * The mentorship only activates when the mentor calls respondToRequest.
+ */
 export const connectDirectly = mutation({
   args: {
     adminUserId: v.string(),
@@ -192,20 +256,39 @@ export const connectDirectly = mutation({
       vendorUserId: args.menteeUserId,
       businessId: args.businessId,
       mentorId: args.mentorId,
-      status: "accepted",
+      status: "pending",
       createdAt: Date.now(),
-      reviewedAt: Date.now(),
       reviewedBy: args.adminUserId,
-      assignedMentorId: args.mentorId,
     });
-    return await ctx.db.insert("mentorships", {
-      mentorId: args.mentorId,
-      menteeUserId: args.menteeUserId,
-      businessId: args.businessId,
-      requestId,
-      startedAt: Date.now(),
-      isActive: true,
+
+    const [mentorProfile, vendorProfile] = await Promise.all([
+      ctx.db.query("profiles").withIndex("by_userId", (q) => q.eq("userId", args.mentorId)).unique(),
+      ctx.db.query("profiles").withIndex("by_userId", (q) => q.eq("userId", args.menteeUserId)).unique(),
+    ]);
+    const now = Date.now();
+
+    // Ask the mentor to review and accept
+    await ctx.db.insert("notifications", {
+      userId: args.mentorId,
+      type: "mentorship_request",
+      title: "Mentorship Assignment",
+      body: `Admin has proposed you as a mentor for ${vendorProfile?.name ?? "a vendor"}. Please review and accept or decline in your dashboard.`,
+      read: false,
+      createdAt: now,
+      fromUserId: args.adminUserId,
     });
+    // Let the vendor know a mentor has been proposed and is reviewing
+    await ctx.db.insert("notifications", {
+      userId: args.menteeUserId,
+      type: "mentorship_request",
+      title: "Mentor Proposed",
+      body: `Admin has proposed ${mentorProfile?.name ?? "a mentor"} for you. Awaiting their confirmation.`,
+      read: false,
+      createdAt: now,
+      fromUserId: args.adminUserId,
+    });
+
+    return requestId;
   },
 });
 

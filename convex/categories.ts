@@ -87,7 +87,7 @@ export const seedCategories = mutation({
         name: "Beauty & Skincare",
         slug: "beauty-skincare",
         description: "Soaps, shea butter, natural oils, lotions, and cosmetics made by Sierra Leonean women",
-        emoji: "💄",
+        emoji: "Sparkles",
         color: "bg-pink-100",
         textColor: "text-pink-600",
         type: "both" as const,
@@ -97,7 +97,7 @@ export const seedCategories = mutation({
         name: "Fashion & Clothing",
         slug: "fashion-clothing",
         description: "Ready-to-wear outfits, traditional attire, wax print designs, and everyday wear",
-        emoji: "👗",
+        emoji: "Shirt",
         color: "bg-purple-100",
         textColor: "text-purple-600",
         type: "products" as const,
@@ -107,7 +107,7 @@ export const seedCategories = mutation({
         name: "Accessories & Jewellery",
         slug: "accessories-jewellery",
         description: "Handcrafted beaded jewellery, bags, belts, headwear, and hair accessories",
-        emoji: "💍",
+        emoji: "Gem",
         color: "bg-yellow-100",
         textColor: "text-yellow-600",
         type: "products" as const,
@@ -117,7 +117,7 @@ export const seedCategories = mutation({
         name: "Food & Beverages",
         slug: "food-beverages",
         description: "Processed foods, snacks, drinks, spices, palm oil, and traditional condiments",
-        emoji: "🍲",
+        emoji: "UtensilsCrossed",
         color: "bg-orange-100",
         textColor: "text-orange-600",
         type: "both" as const,
@@ -127,7 +127,7 @@ export const seedCategories = mutation({
         name: "Farm Produce",
         slug: "farm-produce",
         description: "Fresh vegetables, fruits, grains, cassava, peppers, and groundnuts direct from women farmers",
-        emoji: "🥬",
+        emoji: "Wheat",
         color: "bg-green-100",
         textColor: "text-green-700",
         type: "products" as const,
@@ -137,7 +137,7 @@ export const seedCategories = mutation({
         name: "Crafts & Artwork",
         slug: "crafts-artwork",
         description: "Handmade crafts, weaving, pottery, paintings, and cultural art from local artisans",
-        emoji: "🎨",
+        emoji: "Palette",
         color: "bg-teal-100",
         textColor: "text-teal-600",
         type: "products" as const,
@@ -147,7 +147,7 @@ export const seedCategories = mutation({
         name: "Home & Household",
         slug: "home-household",
         description: "Cookware, home décor, cleaning supplies, and everyday household items",
-        emoji: "🏠",
+        emoji: "Home",
         color: "bg-blue-100",
         textColor: "text-blue-600",
         type: "products" as const,
@@ -157,7 +157,7 @@ export const seedCategories = mutation({
         name: "Textiles & Fabrics",
         slug: "textiles-fabrics",
         description: "Wax prints, tie-dye gara cloth, kente fabric, and sewing materials",
-        emoji: "🧵",
+        emoji: "Layers",
         color: "bg-indigo-100",
         textColor: "text-indigo-600",
         type: "products" as const,
@@ -167,7 +167,7 @@ export const seedCategories = mutation({
         name: "Health & Wellness",
         slug: "health-wellness",
         description: "Herbal remedies, traditional medicines, supplements, and wellness products",
-        emoji: "🌿",
+        emoji: "Leaf",
         color: "bg-emerald-100",
         textColor: "text-emerald-600",
         type: "both" as const,
@@ -177,7 +177,7 @@ export const seedCategories = mutation({
         name: "Baby & Kids",
         slug: "baby-kids",
         description: "Children's clothing, toys, school supplies, and baby care products",
-        emoji: "👶",
+        emoji: "Baby",
         color: "bg-rose-100",
         textColor: "text-rose-600",
         type: "products" as const,
@@ -187,7 +187,7 @@ export const seedCategories = mutation({
         name: "Hair & Beauty Services",
         slug: "hair-beauty-services",
         description: "Salons, braiding, makeup artistry, nail care, and personal grooming services",
-        emoji: "✂️",
+        emoji: "Scissors",
         color: "bg-fuchsia-100",
         textColor: "text-fuchsia-600",
         type: "services" as const,
@@ -197,7 +197,7 @@ export const seedCategories = mutation({
         name: "Catering & Baking",
         slug: "catering-baking",
         description: "Event catering, pastries, cakes, local dishes, and meal preparation services",
-        emoji: "🍰",
+        emoji: "CakeSlice",
         color: "bg-amber-100",
         textColor: "text-amber-600",
         type: "both" as const,
@@ -207,7 +207,7 @@ export const seedCategories = mutation({
         name: "Tailoring & Design",
         slug: "tailoring-design",
         description: "Custom clothing, alterations, uniforms, and fashion design services",
-        emoji: "🧶",
+        emoji: "Wand2",
         color: "bg-violet-100",
         textColor: "text-violet-600",
         type: "both" as const,
@@ -217,7 +217,7 @@ export const seedCategories = mutation({
         name: "Education & Training",
         slug: "education-training",
         description: "Tutoring, vocational skills training, literacy programmes, and workshops",
-        emoji: "📚",
+        emoji: "GraduationCap",
         color: "bg-cyan-100",
         textColor: "text-cyan-600",
         type: "services" as const,
@@ -227,7 +227,7 @@ export const seedCategories = mutation({
         name: "Cleaning & Home Services",
         slug: "cleaning-home-services",
         description: "Domestic cleaning, laundry, ironing, and household management services",
-        emoji: "🧹",
+        emoji: "Wind",
         color: "bg-lime-100",
         textColor: "text-lime-700",
         type: "services" as const,
@@ -237,7 +237,7 @@ export const seedCategories = mutation({
         name: "Event Planning",
         slug: "event-planning",
         description: "Wedding decoration, party planning, photography, and venue styling services",
-        emoji: "🎉",
+        emoji: "PartyPopper",
         color: "bg-red-100",
         textColor: "text-red-600",
         type: "services" as const,
@@ -247,7 +247,7 @@ export const seedCategories = mutation({
         name: "Electronics & Tech",
         slug: "electronics-tech",
         description: "Mobile phones, accessories, repairs, mobile money, and digital services",
-        emoji: "📱",
+        emoji: "Smartphone",
         color: "bg-sky-100",
         textColor: "text-sky-600",
         type: "both" as const,
@@ -257,7 +257,7 @@ export const seedCategories = mutation({
         name: "Stationery & Office",
         slug: "stationery-office",
         description: "School supplies, office materials, printing, and educational stationery",
-        emoji: "📎",
+        emoji: "Paperclip",
         color: "bg-slate-100",
         textColor: "text-slate-600",
         type: "products" as const,
@@ -269,5 +269,46 @@ export const seedCategories = mutation({
       await ctx.db.insert("categories", cat);
     }
     return { inserted: categories.length, message: "Categories seeded successfully." };
+  },
+});
+
+/**
+ * Patches all existing category records to use Lucide icon names instead of emoji characters.
+ * Safe to call multiple times — only updates records whose emoji field isn't already a known icon name.
+ */
+export const migrateToFlatIcons = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const SLUG_ICON_MAP: Record<string, string> = {
+      "beauty-skincare":        "Sparkles",
+      "fashion-clothing":       "Shirt",
+      "accessories-jewellery":  "Gem",
+      "food-beverages":         "UtensilsCrossed",
+      "farm-produce":           "Wheat",
+      "crafts-artwork":         "Palette",
+      "home-household":         "Home",
+      "textiles-fabrics":       "Layers",
+      "health-wellness":        "Leaf",
+      "baby-kids":              "Baby",
+      "hair-beauty-services":   "Scissors",
+      "catering-baking":        "CakeSlice",
+      "tailoring-design":       "Wand2",
+      "education-training":     "GraduationCap",
+      "cleaning-home-services": "Wind",
+      "event-planning":         "PartyPopper",
+      "electronics-tech":       "Smartphone",
+      "stationery-office":      "Paperclip",
+    };
+
+    const all = await ctx.db.query("categories").collect();
+    let updated = 0;
+    for (const cat of all) {
+      const newEmoji = SLUG_ICON_MAP[cat.slug];
+      if (newEmoji && cat.emoji !== newEmoji) {
+        await ctx.db.patch(cat._id, { emoji: newEmoji });
+        updated++;
+      }
+    }
+    return { updated, message: `Updated ${updated} category icon(s) to flat Lucide icons.` };
   },
 });

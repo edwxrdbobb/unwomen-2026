@@ -165,7 +165,7 @@ export const seedIfEmpty = mutation({
         vendorUserId: "demo-vendor",
         productName: "Shea Butter Body Balm",
         productLocation: "Freetown",
-        category: "Beauty",
+        category: "Beauty & Skincare",
         discription: "Rich shea butter balm for dry skin. Made by women-led cooperatives.",
         currentPrice: 45.0,
         previousPrice: 55.0,
@@ -177,7 +177,7 @@ export const seedIfEmpty = mutation({
         vendorUserId: "demo-vendor",
         productName: "Handwoven Market Tote",
         productLocation: "Bo",
-        category: "Accessories",
+        category: "Accessories & Jewellery",
         discription: "Durable cotton tote, handwoven. Perfect for market days.",
         currentPrice: 120.0,
         previousPrice: 140.0,
@@ -189,7 +189,7 @@ export const seedIfEmpty = mutation({
         vendorUserId: "demo-vendor",
         productName: "Spiced Ginger Tea Blend",
         productLocation: "Makeni",
-        category: "Food",
+        category: "Food & Beverages",
         discription: "Caffeine-free ginger and lemongrass blend. 15 sachets.",
         currentPrice: 35.0,
         previousPrice: 40.0,
@@ -201,7 +201,7 @@ export const seedIfEmpty = mutation({
         vendorUserId: "demo-vendor",
         productName: "Ceramic Cooking Pot (Medium)",
         productLocation: "Freetown",
-        category: "Home",
+        category: "Home & Household",
         discription: "Glazed ceramic pot for stews and rice. Oven-safe.",
         currentPrice: 280.0,
         previousPrice: 320.0,
@@ -213,7 +213,7 @@ export const seedIfEmpty = mutation({
         vendorUserId: "demo-vendor",
         productName: "Printed Wax Print Fabric (6 yards)",
         productLocation: "Kenema",
-        category: "Fashion",
+        category: "Fashion & Clothing",
         discription: "Vibrant authentic wax print cotton fabric.",
         currentPrice: 450.0,
         previousPrice: 500.0,
@@ -226,5 +226,29 @@ export const seedIfEmpty = mutation({
       await ctx.db.insert("products", row);
     }
     return { inserted: samples.length, message: "Sample products inserted." };
+  },
+});
+
+/** One-time migration: fix seeded products that used short category names. */
+export const fixSeedCategories = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const MAP: Record<string, string> = {
+      "Beauty":      "Beauty & Skincare",
+      "Accessories": "Accessories & Jewellery",
+      "Food":        "Food & Beverages",
+      "Home":        "Home & Household",
+      "Fashion":     "Fashion & Clothing",
+    };
+    const all = await ctx.db.query("products").collect();
+    let updated = 0;
+    for (const p of all) {
+      const fixed = MAP[p.category];
+      if (fixed) {
+        await ctx.db.patch(p._id, { category: fixed });
+        updated++;
+      }
+    }
+    return { updated };
   },
 });
