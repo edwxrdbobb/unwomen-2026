@@ -102,6 +102,76 @@ export const importBusiness = mutation({
   },
 });
 
+// Rewrites legacy relative image URLs to Cloudinary URLs.
+// Handles paths like "/products/filename.jpeg" or full legacy backend URLs.
+// Assumes images were uploaded to Cloudinary with original filenames preserved.
+export const migrateImageUrls = mutation({
+  args: {
+    cloudName: v.string(),
+    folder: v.string(),
+    dryRun: v.optional(v.boolean()),
+  },
+  handler: async (ctx, { cloudName, folder, dryRun }) => {
+    function toCloudinaryUrl(raw: string): string | null {
+      // Already a Cloudinary URL — leave it
+      if (raw.startsWith("https://res.cloudinary.com")) return null;
+      // Already some other absolute URL — leave it
+      if (raw.startsWith("http")) return null;
+      // Relative path: /products/filename.ext or products/filename.ext
+      const filename = raw.split("/").pop();
+      if (!filename) return null;
+      const nameWithoutExt = filename.replace(/\.[^.]+$/, "");
+      return `https://res.cloudinary.com/${cloudName}/image/upload/${folder}/${nameWithoutExt}`;
+    }
+
+    const products = await ctx.db.query("products").collect();
+    const businesses = await ctx.db.query("businesses").collect();
+
+    let updatedProducts = 0;
+    let updatedBusinesses = 0;
+
+    for (const product of products) {
+      const newUrls = product.imageUrls.map((url) => toCloudinaryUrl(url) ?? url);
+      const changed = newUrls.some((u, i) => u !== product.imageUrls[i]);
+      if (changed) {
+        if (!dryRun) await ctx.db.patch(product._id, { imageUrls: newUrls });
+        updatedProducts++;
+      }
+    }
+
+    for (const business of businesses) {
+      const newUrls = business.imageUrls.map((url) => toCloudinaryUrl(url) ?? url);
+      const changed = newUrls.some((u, i) => u !== business.imageUrls[i]);
+      if (changed) {
+        if (!dryRun) await ctx.db.patch(business._id, { imageUrls: newUrls });
+        updatedBusinesses++;
+      }
+    }
+
+    return {
+      dryRun: !!dryRun,
+      updatedProducts,
+      updatedBusinesses,
+      totalProducts: products.length,
+      totalBusinesses: businesses.length,
+    };
+  },
+});
+
+export const patchProductImages = mutation({
+  args: { id: v.id("products"), imageUrls: v.array(v.string()) },
+  handler: async (ctx, { id, imageUrls }) => {
+    await ctx.db.patch(id, { imageUrls });
+  },
+});
+
+export const patchBusinessImages = mutation({
+  args: { id: v.id("businesses"), imageUrls: v.array(v.string()) },
+  handler: async (ctx, { id, imageUrls }) => {
+    await ctx.db.patch(id, { imageUrls });
+  },
+});
+
 export const seedCategories = mutation({
   args: {},
   handler: async (ctx) => {
