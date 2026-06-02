@@ -8,6 +8,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { Users, Plus, Shield, CheckCircle, Trash2, ChevronDown, X, Search, Pencil, Check } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
 import { Pagination } from '@/components/ui/Pagination'
+import { cleanError } from '@/utils/formatError'
 
 const ROLES = ['all', 'buyer', 'vendor', 'mentor', 'super_admin'] as const
 type RoleFilter = typeof ROLES[number]
@@ -67,7 +68,7 @@ export default function AdminUsersPage() {
       setForm({ name: '', email: '', password: '', role: 'vendor', phoneNo: '', location: '' })
       setShowCreate(false)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to create user')
+      toast.error(cleanError(err, 'Failed to create user'))
     } finally { setSaving(false) }
   }
 
@@ -91,7 +92,7 @@ export default function AdminUsersPage() {
       toast.success('User updated')
       setEditingUserId(null)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to update user')
+      toast.error(cleanError(err, 'Failed to update user'))
     } finally { setSaving(false) }
   }
 

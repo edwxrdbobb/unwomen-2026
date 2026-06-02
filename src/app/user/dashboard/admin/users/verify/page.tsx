@@ -9,6 +9,7 @@ import {
   ShieldCheck, Mail, Phone, MapPin, CalendarDays,
   Loader2, CheckCircle, XCircle, Users, ChevronLeft, Search, X, User,
 } from 'lucide-react'
+import { cleanError } from '@/utils/formatError'
 import Link from 'next/link'
 
 const ROLE_COLORS: Record<string, string> = {
@@ -101,7 +102,7 @@ export default function VerifyUsersPage() {
       toast.success('User approved — notification sent')
       setSelected(prev => { const next = new Set(prev); next.delete(targetUserId); return next })
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to approve user')
+      toast.error(cleanError(err, 'Failed to approve user'))
     } finally {
       setProcessingId(null)
     }
@@ -119,7 +120,7 @@ export default function VerifyUsersPage() {
       toast('Verification declined', { icon: '🚫' })
       setSelected(prev => { const next = new Set(prev); next.delete(targetUserId); return next })
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed')
+      toast.error(cleanError(err, 'Failed'))
     } finally {
       setProcessingId(null)
     }

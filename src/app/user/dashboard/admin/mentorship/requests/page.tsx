@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import type { Id } from '@cvx/_generated/dataModel'
+import { cleanError } from '@/utils/formatError'
 import SearchableSelect from '@/components/ui/SearchableSelect'
 
 const STATUS_TABS = ['all', 'pending', 'accepted', 'rejected'] as const
@@ -62,7 +63,7 @@ export default function MentorshipRequestsPage() {
       toast.success('Mentorship activated!')
       setAssignMap(prev => { const n = { ...prev }; delete n[id]; return n })
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to accept request')
+      toast.error(cleanError(err, 'Failed to accept request'))
     } finally { setProcessingId(null) }
   }
 
@@ -77,7 +78,7 @@ export default function MentorshipRequestsPage() {
       })
       toast.success('Request rejected')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to reject')
+      toast.error(cleanError(err, 'Failed to reject'))
     } finally { setProcessingId(null) }
   }
 

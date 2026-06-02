@@ -9,6 +9,7 @@ import { Package, Trash2, Search, Pencil, Check, X, Plus, ChevronDown } from 'lu
 import { ProductImage } from '@/components/ui/ProductImage'
 import { MultiImageUpload } from '@/components/ui/ImageUpload'
 import { Pagination } from '@/components/ui/Pagination'
+import { cleanError } from '@/utils/formatError'
 import type { Id } from '@cvx/_generated/dataModel'
 
 type EditForm = {
@@ -89,7 +90,7 @@ export default function AdminProductsPage() {
       toast.success('Product updated')
       setEditingId(null)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to update product')
+      toast.error(cleanError(err, 'Failed to update product'))
     } finally { setSaving(false) }
   }
 
@@ -128,7 +129,7 @@ export default function AdminProductsPage() {
       setCreateForm(EMPTY_CREATE)
       setShowCreate(false)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to create product')
+      toast.error(cleanError(err, 'Failed to create product'))
     } finally { setCreating(false) }
   }
 

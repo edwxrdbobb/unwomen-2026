@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useQuery, useMutation } from 'convex/react'
 import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
+import { cleanError } from '@/utils/formatError'
 import { Users, CheckCircle, MapPin, Briefcase, X, Send, AlertCircle } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
 import toast from 'react-hot-toast'
@@ -32,8 +33,7 @@ function RequestModal({ mentor, onClose }: { mentor: Mentor; onClose: () => void
       })
       setSent(true)
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Something went wrong'
-      toast.error(msg)
+      toast.error(cleanError(err, 'Something went wrong'))
     } finally {
       setLoading(false)
     }

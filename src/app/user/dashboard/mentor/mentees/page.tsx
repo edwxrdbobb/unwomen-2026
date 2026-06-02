@@ -11,6 +11,7 @@ import {
   MessageSquare, CalendarDays, User,
 } from 'lucide-react'
 import Link from 'next/link'
+import { cleanError } from '@/utils/formatError'
 import type { Id } from '@cvx/_generated/dataModel'
 
 const TABS = ['requests', 'active', 'past'] as const
@@ -48,7 +49,7 @@ export default function MenteesPage() {
       toast.success(status === 'accepted' ? 'Mentorship accepted!' : 'Request declined')
       if (status === 'accepted') setTab('active')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Something went wrong')
+      toast.error(cleanError(err, 'Something went wrong'))
     } finally {
       setProcessingId(null)
     }

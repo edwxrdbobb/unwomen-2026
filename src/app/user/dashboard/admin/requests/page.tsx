@@ -6,6 +6,7 @@ import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
 import { toast, Toaster } from 'react-hot-toast'
 import { GitPullRequest, CheckCircle, XCircle, Clock, ChevronDown } from 'lucide-react'
+import { cleanError } from '@/utils/formatError'
 import type { Id } from '@cvx/_generated/dataModel'
 
 const STATUS_TABS = ['all', 'pending', 'accepted', 'rejected'] as const
@@ -48,7 +49,7 @@ export default function AdminRequestsPage() {
       toast.success('Mentorship activated!')
       setAssignMentorId('')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to accept request')
+      toast.error(cleanError(err, 'Failed to accept request'))
     } finally { setProcessingId(null) }
   }
 
@@ -61,7 +62,7 @@ export default function AdminRequestsPage() {
       })
       toast.success('Request rejected')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to reject')
+      toast.error(cleanError(err, 'Failed to reject'))
     } finally { setProcessingId(null) }
   }
 

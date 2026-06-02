@@ -8,6 +8,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { Building2, Trash2, Search, Globe, Mail, Phone, Pencil, Plus, X, Check } from 'lucide-react'
 import { Pagination } from '@/components/ui/Pagination'
 import { BusinessImage } from '@/components/ui/BusinessImage'
+import { cleanError } from '@/utils/formatError'
 import type { Id } from '@cvx/_generated/dataModel'
 
 const BUSINESS_CATEGORIES = ['SME', 'MACRO', 'MICRO', 'SOHO'] as const
@@ -74,7 +75,7 @@ export default function AdminBusinessesPage() {
       setCreateForm({ ...blankBiz, vendorUserId: '' })
       setShowCreate(false)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to create business')
+      toast.error(cleanError(err, 'Failed to create business'))
     } finally { setSaving(false) }
   }
 
@@ -109,7 +110,7 @@ export default function AdminBusinessesPage() {
       toast.success('Business updated')
       setEditingId(null)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to update business')
+      toast.error(cleanError(err, 'Failed to update business'))
     } finally { setSaving(false) }
   }
 

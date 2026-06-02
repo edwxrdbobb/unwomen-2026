@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import type { Id } from '@cvx/_generated/dataModel'
+import { cleanError } from '@/utils/formatError'
 import SearchableSelect from '@/components/ui/SearchableSelect'
 
 function timeAgo(ts: number) {
@@ -62,7 +63,7 @@ export default function AdminMentorshipPage() {
       setSelectedMentorId('')
       setSelectedBusinessId('')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to create pairing')
+      toast.error(cleanError(err, 'Failed to create pairing'))
     } finally {
       setSubmitting(false)
     }
@@ -78,7 +79,7 @@ export default function AdminMentorshipPage() {
       })
       toast.success('Mentorship ended')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to end mentorship')
+      toast.error(cleanError(err, 'Failed to end mentorship'))
     } finally {
       setEndingId(null) }
   }

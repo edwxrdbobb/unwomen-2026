@@ -5,7 +5,7 @@ import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, ArrowRight
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-900 dark:bg-gray-950 text-white mt-16">
+    <footer className="bg-[#399edc] dark:bg-gray-950 text-white mt-16">
       {/* Subscribe band */}
       <div className="bg-[#399edc] py-8 px-4 sm:px-6">
         <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -73,8 +73,8 @@ const Footer = () => {
             {[
               { href: '/products/shop/category/business/SME', label: 'SME' },
               { href: '/products/shop/category/business/SOHO', label: 'SOHO' },
-              { href: '/products/shop/category/business/MICRO', label: 'Micro Enterprise' },
-              { href: '/products/shop/category/business/MACRO', label: 'Macro Enterprise' },
+              { href: '/products/shop/category/business/MICRO', label: 'Micro' },
+              { href: '/products/shop/category/business/MACRO', label: 'Macro' },
             ].map(({ href, label }) => (
               <li key={href}>
                 <Link href={href} className="text-sm text-white/70 hover:text-white group inline-flex items-center gap-1.5 transition-colors">

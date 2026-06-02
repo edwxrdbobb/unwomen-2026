@@ -6,6 +6,7 @@ import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
 import { toast, Toaster } from 'react-hot-toast'
 import { MessageSquare, ArrowLeft, UserCircle, XCircle, User } from 'lucide-react'
+import { cleanError } from '@/utils/formatError'
 import type { Id } from '@cvx/_generated/dataModel'
 
 export default function AdminMessagesPage() {
@@ -29,7 +30,7 @@ export default function AdminMessagesPage() {
       toast.success('Mentorship ended')
       setSelectedMentorshipId(null)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to end mentorship')
+      toast.error(cleanError(err, 'Failed to end mentorship'))
     }
   }
 

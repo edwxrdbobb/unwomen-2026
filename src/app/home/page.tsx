@@ -3,14 +3,13 @@ import CategoryHorizontal from '@/components/categoryHorizontal'
 import ProductCard from '@/components/productCards'
 import bannerOne from '@/images/banner2-unwomen.jpg'
 import bannerTwo from '@/images/unwomen-banner1.jpg'
-import { ShieldCheck, Truck, Users, BadgeCheck } from 'lucide-react'
+import { ShieldCheck, Truck, Users } from 'lucide-react'
 import Link from 'next/link'
 
 const trustFeatures = [
   { Icon: ShieldCheck, title: 'Verified Sellers', desc: 'All vendors are screened and approved' },
   { Icon: Truck, title: 'Nationwide Delivery', desc: 'We ship across Sierra Leone' },
   { Icon: Users, title: 'Women-Led Businesses', desc: 'Supporting female entrepreneurs' },
-  { Icon: BadgeCheck, title: 'UN Women Backed', desc: 'Trusted international programme' },
 ]
 
 export default function HomeScreen() {

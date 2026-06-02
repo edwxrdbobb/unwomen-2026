@@ -9,6 +9,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import Loader from '@/components/Loader'
 import { Package, MapPin, Tag, DollarSign, FileText, ArrowRight, ArrowLeft } from 'lucide-react'
 import { MultiImageUpload } from '@/components/ui/ImageUpload'
+import { cleanError } from '@/utils/formatError'
 
 const labelClass = "block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5 uppercase tracking-wide"
 const inputClass = "w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl text-sm text-gray-800 dark:text-gray-100 dark:bg-gray-700 placeholder-gray-400 outline-none focus:border-blue-400 transition-colors"
@@ -65,7 +66,7 @@ export default function EditProductPage() {
       toast.success('Product updated!')
       router.push('/user/dashboard/vendor/products')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Could not update product.')
+      toast.error(cleanError(err, 'Could not update product.'))
     } finally {
       setIsLoading(false)
     }

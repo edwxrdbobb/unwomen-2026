@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from '@/images/unwomenlogo.png';
 import { useAuth } from '@/context/AuthContext';
+import { cleanError } from '@/utils/formatError';
 import { User, Mail, Phone, MapPin, Lock, ArrowRight, Eye, EyeOff, ChevronDown } from 'lucide-react';
 
 export default function Register() {
@@ -53,7 +54,7 @@ export default function Register() {
       toast.success('Account created!');
       setTimeout(() => router.push('/'), 800);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'An error occurred. Please try again.');
+      toast.error(cleanError(err, 'An error occurred. Please try again.'));
     } finally {
       setIsLoading(false);
     }

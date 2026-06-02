@@ -8,6 +8,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { Mail, Phone, MapPin, FileText, Camera, Edit2, CheckCircle, ArrowRight, MessageCircle, Send } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
 import { useCloudinaryUpload } from '@/hooks/useCloudinaryUpload'
+import { cleanError } from '@/utils/formatError'
 
 const labelClass = "block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5 uppercase tracking-wide"
 const inputClass = "w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl text-sm text-gray-800 dark:text-gray-100 dark:bg-gray-700 placeholder-gray-400 outline-none focus:border-[#66b9e8] transition-colors"
@@ -72,7 +73,7 @@ export default function VendorProfilePage() {
       toast.success('Profile updated!')
       setEditing(false)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Could not update profile')
+      toast.error(cleanError(err, 'Could not update profile'))
     } finally {
       setSaving(false)
     }

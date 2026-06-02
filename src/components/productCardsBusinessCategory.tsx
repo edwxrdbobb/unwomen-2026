@@ -10,8 +10,8 @@ import { api } from "@cvx/_generated/api";
 const BUSINESS_CATEGORY_META: Record<string, { full: string; description: string; color: string }> = {
   SME:   { full: "Small & Medium Enterprise",       description: "Businesses with 10–249 employees driving economic growth across Sierra Leone.",         color: "bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-700 dark:text-blue-300" },
   SOHO:  { full: "Small Office / Home Office",      description: "Entrepreneurs operating from home or a small workspace — agile, independent, and growing.", color: "bg-purple-50 border-purple-200 text-purple-800 dark:bg-purple-900/20 dark:border-purple-700 dark:text-purple-300" },
-  MICRO: { full: "Micro Enterprise",                description: "Businesses with fewer than 10 employees — the backbone of Sierra Leone's women-led economy.", color: "bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-700 dark:text-green-300" },
-  MACRO: { full: "Macro Enterprise",                description: "Large-scale businesses operating at national or regional level with significant market reach.", color: "bg-orange-50 border-orange-200 text-orange-800 dark:bg-orange-900/20 dark:border-orange-700 dark:text-orange-300" },
+  MICRO: { full: "Micro",                           description: "Businesses with fewer than 10 employees — the backbone of Sierra Leone's women-led economy.", color: "bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-700 dark:text-green-300" },
+  MACRO: { full: "Macro",                           description: "Large-scale businesses operating at national or regional level with significant market reach.", color: "bg-orange-50 border-orange-200 text-orange-800 dark:bg-orange-900/20 dark:border-orange-700 dark:text-orange-300" },
 };
 
 interface ProductCardBusinessCategoryProps { category: string; size?: number }

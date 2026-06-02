@@ -6,6 +6,7 @@ import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
 import { toast, Toaster } from 'react-hot-toast'
 import { Radio, Send, Trash2, Users, ShoppingBag, GraduationCap, Globe } from 'lucide-react'
+import { cleanError } from '@/utils/formatError'
 import type { Id } from '@cvx/_generated/dataModel'
 
 const AUDIENCES = [
@@ -41,7 +42,7 @@ export default function AdminBroadcastPage() {
       toast.success('Broadcast sent!')
       setForm(blank)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to send broadcast')
+      toast.error(cleanError(err, 'Failed to send broadcast'))
     } finally { setSending(false) }
   }
 

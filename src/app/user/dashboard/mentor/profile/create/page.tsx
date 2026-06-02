@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useConvex, useQuery } from 'convex/react'
 import { api } from '@cvx/_generated/api'
 import { useAuth } from '@/context/AuthContext'
+import { cleanError } from '@/utils/formatError'
 import { toast } from 'react-hot-toast'
 
 export default function CreateProfileForm() {
@@ -55,7 +56,7 @@ export default function CreateProfileForm() {
       toast.success('Profile saved!')
       router.push('/user/dashboard/mentor/profile')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Could not save profile')
+      toast.error(cleanError(err, 'Could not save profile'))
     } finally {
       setSaving(false)
     }

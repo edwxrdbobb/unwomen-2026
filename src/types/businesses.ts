@@ -5,8 +5,8 @@ export interface Category {
   
   export const BUSINESS_CATEGORIES: Category[] = [
     { id: 'SME', name: 'Small and Medium-Sized Enterprise' },
-    { id: 'MACRO', name: 'Macro Enterprise' },
-    { id: 'MICRO', name: 'Micro Enterprise' },
+    { id: 'MACRO', name: 'Macro' },
+    { id: 'MICRO', name: 'Micro' },
     { id: 'SOHO', name: 'Small Office/home Office' }
   ];
   

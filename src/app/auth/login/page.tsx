@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import logo from '@/images/unwomenlogo.png';
 import { Mail, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { cleanError } from '@/utils/formatError';
 
 export default function Login() {
   const { login } = useAuth();
@@ -25,7 +26,7 @@ export default function Login() {
       toast.success('Login successful!');
       setTimeout(() => router.push('/'), 800);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Login failed. Please try again.');
+      toast.error(cleanError(err, 'Login failed. Please try again.'));
     } finally {
       setIsLoading(false);
     }

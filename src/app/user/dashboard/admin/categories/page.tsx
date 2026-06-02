@@ -6,6 +6,7 @@ import { api } from '@cvx/_generated/api'
 import { toast, Toaster } from 'react-hot-toast'
 import { Plus, Pencil, Trash2, X, Check, Search } from 'lucide-react'
 import { CategoryIcon, ICON_MAP } from '@/components/ui/CategoryIcon'
+import { cleanError } from '@/utils/formatError'
 import type { Id } from '@cvx/_generated/dataModel'
 
 // ── Icon picker groups ────────────────────────────────────────────────────────
@@ -154,7 +155,7 @@ export default function AdminCategoriesPage() {
       setForm(blankForm)
       setShowCreate(false)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to create category')
+      toast.error(cleanError(err, 'Failed to create category'))
     } finally { setSaving(false) }
   }
 
@@ -165,7 +166,7 @@ export default function AdminCategoriesPage() {
       toast.success('Category updated!')
       setEditingId(null)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to update')
+      toast.error(cleanError(err, 'Failed to update'))
     } finally { setSaving(false) }
   }
 

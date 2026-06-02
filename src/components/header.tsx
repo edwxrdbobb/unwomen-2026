@@ -283,8 +283,8 @@ export default function Header() {
           {[
             { href: '/products/shop/category/business/SME',   label: 'SME',   full: 'Small & Medium Enterprise' },
             { href: '/products/shop/category/business/SOHO',  label: 'SOHO',  full: 'Small Office / Home Office' },
-            { href: '/products/shop/category/business/MICRO', label: 'Micro', full: 'Micro Enterprise (< 10 employees)' },
-            { href: '/products/shop/category/business/MACRO', label: 'Macro', full: 'Macro Enterprise (large-scale)' },
+            { href: '/products/shop/category/business/MICRO', label: 'Micro', full: 'Micro (< 10 employees)' },
+            { href: '/products/shop/category/business/MACRO', label: 'Macro', full: 'Macro (large-scale)' },
           ].map(({ href, label, full }) => (
             <div key={href} className="relative group flex-shrink-0">
               <Link
