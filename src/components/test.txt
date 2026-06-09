@@ -80,7 +80,7 @@ export default function Home() {
           <div>
             <h5 className="font-semibold">Contact</h5>
             <p className="mt-4">Freetown Sierra Leone</p>
-            <p>Email: info@unwomenmarketsquare.org</p>
+            <p>Email: info@slwms.org</p>
             <p>Phone: +232 79 366 751</p>
           </div>
 

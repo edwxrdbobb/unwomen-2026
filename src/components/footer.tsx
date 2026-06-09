@@ -103,8 +103,8 @@ const Footer = () => {
             </li>
             <li className="flex items-center gap-3">
               <Mail className="w-4 h-4 text-yellow-400 flex-shrink-0" />
-              <a href="mailto:info@unwomenmarketsquare.org" className="text-sm text-white/70 hover:text-white transition-colors break-all">
-                info@unwomenmarketsquare.org
+              <a href="mailto:info@slwms.org" className="text-sm text-white/70 hover:text-white transition-colors break-all">
+                info@slwms.org
               </a>
             </li>
           </ul>
