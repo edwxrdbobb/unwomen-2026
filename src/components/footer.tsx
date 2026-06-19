@@ -33,7 +33,7 @@ const Footer = () => {
         <div>
           <Image src={logo} alt="UN Women Market Square" width={110} height={44} className="h-10 w-auto brightness-0 invert mb-4" />
           <p className="text-white/60 text-sm leading-relaxed">
-            Empowering women entrepreneurs in Sierra Leone through an inclusive digital marketplace backed by UN Women.
+            UN Women is the global champion for gender equality, working to develop and uphold standards and create an environment in which every woman and girl can exercise her human rights and live up to her full potential.
           </p>
           <div className="flex items-center gap-3 mt-5">
             {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
